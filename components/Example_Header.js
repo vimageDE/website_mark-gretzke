@@ -1,12 +1,35 @@
 import { ConnectButton } from 'web3uikit';
 import { Software } from './Component_Software';
+import { useState, useEffect } from 'react';
 
 export default function Header() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 500; // You can adjust this value as needed
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      // Cleanup: remove the event listener when the component is unmounted
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrolled]);
+
   return (
-    <div className="w-[100%] fixed top-0 z-10 bg-black bg-opacity-50 flex justify-center text-center items-center">
+    <div
+      className={`w-[100%] fixed top-0 z-20 bg-black ${
+        scrolled ? 'bg-opacity-90' : 'bg-opacity-50'
+      } flex justify-center text-center items-center transition-all duration-1000`}
+    >
       <h2 className="w-32">Skills</h2>
-      <div className="flex justify-center h-24">
-        <img src="/Logo_Vimage.png"></img>
+      <div className="flex justify-center">
+        <img src="/Logo_Vimage.png" className={`${scrolled ? 'h-12' : 'h-24'} transition-all duration-1000`}></img>
       </div>
       <h2 className="w-32">Projects</h2>
     </div>

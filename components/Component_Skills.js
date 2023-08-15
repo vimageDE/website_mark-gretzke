@@ -24,7 +24,7 @@ export default function Skills() {
           <div className="w-36 text-xl">PS 80%</div>
           <div className="w-36 text-xl">C# 85%</div>
           <div className="w-36 text-xl">Solidity 65%</div>
-          <div className="w-36 text-xl">JS 65%</div>
+          <div className="w-36 text-xl">WP 65%</div>
           <div className="w-36 text-xl">SD 65%</div>
         </div>
         <div className="flex justify-center space-x-32">

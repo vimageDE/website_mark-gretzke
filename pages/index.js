@@ -1,3 +1,4 @@
+import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import Head from 'next/head';
 import Header from '../components/Example_Header';
 import ExampleComponent from '../components/Example_Component_Basic';
@@ -9,6 +10,7 @@ import Skills from '../components/Component_Skills';
 import Projects from '../components/Component_Projects';
 import PortfolioSection from '../components/Component_PortfolioSection';
 import SoftwareSection from '../components/Section_Software';
+import 'overlayscrollbars/overlayscrollbars.css';
 
 const bgImage = '/background-image1.jpg';
 
@@ -25,12 +27,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <Hero />
-      <Intro />
-      <Skills />
-      {/*<SoftwareSection />
-      <PortfolioSection />
-  <About />*/}
+      <div className="overflow overflow-x-hidden">
+        <Hero />
+        <Intro />
+        <Skills />
+        <SoftwareSection />
+        <PortfolioSection />
+        <About />
+      </div>
     </div>
   );
 }

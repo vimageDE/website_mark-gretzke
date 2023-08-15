@@ -6,6 +6,13 @@ export default function PortfolioSection() {
   // Define state to track the currently active topic and project
   const [activeTopic, setActiveTopic] = useState('Animation');
   const [activeProject, setActiveProject] = useState(0); // Using index here
+  const [videoWidth, setVideoWidth] = useState(null);
+  const [videoHeight, setVideoHeight] = useState(null);
+
+  const handleMetadataLoaded = (event) => {
+    setVideoWidth(event.target.videoWidth);
+    setVideoHeight(event.target.videoHeight);
+  };
 
   const project = projects[activeTopic][activeProject];
 
@@ -16,7 +23,7 @@ export default function PortfolioSection() {
         <div className="">a small selection</div>
       </div>
 
-      <div className="topics min-h-[45px] flex items-center justify-center">
+      <div className="topics min-h-[47px] flex items-center justify-center">
         {Object.keys(projects).map((topic) => (
           <button
             key={topic}
@@ -54,7 +61,7 @@ export default function PortfolioSection() {
         <div
           key={project.title}
           className={`project-slide active relative`}
-          style={{ width: '100vw', maxWidth: '1400px', height: '37vw' }} // Maintaining 21:9 aspect ratio
+          style={{ width: '100vw', maxWidth: videoHeight > videoWidth ? '500px' : '1400px', height: '37vw' }} // Maintaining 21:9 aspect ratio
         >
           <video
             className="absolute top-0 left-0 w-full h-full object-cover rounded-md"
@@ -63,6 +70,7 @@ export default function PortfolioSection() {
             autoPlay
             loop
             muted
+            onLoadedMetadata={handleMetadataLoaded}
           ></video>
 
           <div
@@ -71,7 +79,9 @@ export default function PortfolioSection() {
             onMouseLeave={() => setHover(false)}
           >
             <h2 className="text-6xl text-white">{project.title}</h2>
-            <p className={`px-64 ${hover ? 'block' : 'hidden'}`}>{project.description}</p>
+            <p className={`${videoHeight > videoWidth ? 'px-4' : 'px-64'}  ${hover ? 'block' : 'hidden'}`}>
+              {project.description}
+            </p>
           </div>
         </div>
         <button
