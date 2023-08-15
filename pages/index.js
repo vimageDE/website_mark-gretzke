@@ -1,38 +1,36 @@
 import Head from 'next/head';
 import Header from '../components/Example_Header';
 import ExampleComponent from '../components/Example_Component_Basic';
-import { useMoralis } from 'react-moralis';
+import Selection from '../components/Component_Selection';
+import Hero from '../components/Component_Hero';
+import About from '../components/Component_About';
+import Intro from '../components/Component_Intro';
+import Skills from '../components/Component_Skills';
+import Projects from '../components/Component_Projects';
+import PortfolioSection from '../components/Component_PortfolioSection';
+import SoftwareSection from '../components/Section_Software';
 
-const supportedChains = ['31337', '11155111'];
-const bgImage = '/background-image.jpg';
+const bgImage = '/background-image1.jpg';
 
 export default function Home() {
-  const { isWeb3Enabled, chainId } = useMoralis();
-
   return (
-    <div
-      className="bg-cover min-h-screen bg-black bg-opacity-10 bg-fixed"
-      style={{ backgroundImage: `url(${bgImage})` }}
-    >
+    <div>
+      <div
+        className="fixed top-0 left-0 w-full h-full object-cover -z-50"
+        style={{ backgroundImage: `url(${bgImage})` }}
+      ></div>
       <Head>
         <title>Example project</title>
         <meta name="description" content="template by Mark Wierzimok" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      {isWeb3Enabled ? (
-        <div>
-          {supportedChains.includes(parseInt(chainId).toString()) ? (
-            <div className="">
-              <ExampleComponent className="" />
-            </div>
-          ) : (
-            <div>{`Please switch to a supported chainId. The supported Chain Ids are: ${supportedChains}`}</div>
-          )}
-        </div>
-      ) : (
-        <div>Please connect to a Wallet</div>
-      )}
+      <Hero />
+      <Intro />
+      <Skills />
+      {/*<SoftwareSection />
+      <PortfolioSection />
+  <About />*/}
     </div>
   );
 }

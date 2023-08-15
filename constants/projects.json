@@ -1,0 +1,59 @@
+{
+    "Animation": [
+      {
+        "title": "Designers Dream",
+        "description": "Description for project. It should definetly be longer, so I will test a longer text by doing it like this. And maybe even longer, so super long could be possible, but it is still not long enought, so lets put it very long",
+        "media": "Max A_Designers_Dream.mp4"
+      },
+      {
+        "title": "Fast 90 Grad",
+        "description": "This is a long test",
+        "media": "Marko Fast_90_Grad.mp4"
+      }
+    ],
+    "VFX": [
+      {
+        "title": "Project 1",
+        "description": "Description for project 1",
+        "media": "path_to_image_or_video"
+      }
+
+    ],
+    "Gamedev": [
+      {
+        "title": "Project 1",
+        "description": "Description for project 1",
+        "media": "path_to_image_or_video"
+      }
+
+    ],
+    "Blockchain": [
+        {
+          "title": "Project 1",
+          "description": "Description for project 1",
+          "media": "path_to_image_or_video"
+        }
+  
+      ],
+      "Webdev": [
+        {
+          "title": "Project 1",
+          "description": "Description for project 1",
+          "media": "path_to_image_or_video"
+        }
+  
+      ],
+      "AI": [
+        {
+          "title": "Project 1",
+          "description": "Description for project 1",
+          "media": "path_to_image_or_video"
+        }
+  
+      ]
+  
+  
+  
+
+  }
+  
