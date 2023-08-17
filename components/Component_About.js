@@ -3,7 +3,7 @@ export default function About() {
 
   return (
     <div className="py-64 bg-black">
-      <div className="h-[400px]  flex justify-center">
+      <div className="h-[400px] flex justify-center">
         <div className="w-2/5">
           <div
             className="bg-contain bg-no-repeat h-96 w-96 ml-auto rounded-md"

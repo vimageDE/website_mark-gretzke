@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "animate.css": "^4.1.1",
+    "framer-motion": "^10.16.0",
     "moralis": "^1.8.0",
     "next": "12.1.5",
     "overlayscrollbars": "^2.2.1",

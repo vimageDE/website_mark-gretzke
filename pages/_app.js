@@ -2,6 +2,7 @@ import { MoralisProvider } from 'react-moralis';
 import { NotificationProvider } from 'web3uikit';
 import 'animate.css/animate.min.css';
 import '../styles/globals.css';
+import 'tailwindcss/tailwind.css';
 import { GlobalVariables } from '../components/GlobalVariables';
 
 function MyApp({ Component, pageProps }) {

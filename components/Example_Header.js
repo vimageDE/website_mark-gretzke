@@ -2,24 +2,25 @@ import { ConnectButton } from 'web3uikit';
 import { Software } from './Component_Software';
 import { useState, useEffect } from 'react';
 
-export default function Header() {
+export default function Header({ scrollContainer }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 500; // You can adjust this value as needed
+      const isScrolled = scrollContainer.current.scrollTop > 450; // Adjust this value if needed
       if (isScrolled !== scrolled) {
         setScrolled(isScrolled);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // Attach the event listener to the scrolling container
+    scrollContainer.current.addEventListener('scroll', handleScroll);
 
     return () => {
       // Cleanup: remove the event listener when the component is unmounted
-      window.removeEventListener('scroll', handleScroll);
+      scrollContainer.current.removeEventListener('scroll', handleScroll);
     };
-  }, [scrolled]);
+  }, [scrolled, scrollContainer]);
 
   return (
     <div
