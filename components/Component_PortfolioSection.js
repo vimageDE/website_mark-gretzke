@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import projects from '../constants/projects.json';
+import { motion } from 'framer-motion';
 
 export default function PortfolioSection() {
   const [hover, setHover] = useState(false);
@@ -23,18 +24,19 @@ export default function PortfolioSection() {
         <div className="">a small selection</div>
       </div>
 
-      <div className="topics min-h-[47px] flex items-center justify-center">
+      <div className="topics flex items-center justify-center">
         {Object.keys(projects).map((topic) => (
-          <button
+          <motion.button
             key={topic}
             onClick={() => {
               setActiveTopic(topic);
               setActiveProject(0);
             }}
-            className={`w-32 hover:text-xl ${topic === activeTopic ? 'text-gold' : 'text-white'}`}
+            className={`w-32 ${topic === activeTopic ? 'text-gold' : 'text-white'}`}
+            whileHover={{ scale: 1.4 }}
           >
             {topic}
-          </button>
+          </motion.button>
         ))}
       </div>
 

@@ -1,6 +1,18 @@
 import { ConnectButton } from 'web3uikit';
 import { Software } from './Component_Software';
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+
+const CustomLink = ({ title }) => {
+  return (
+    <h2 className="w-32 relative group text-center">
+      {title}
+      <span className="h-[2px] bg-white inline-block absolute left-[50%] bottom-0 w-[0%] group-hover:w-[50%] group-hover:left-[25%] transition-all ease duration-300">
+        &nbsp;
+      </span>
+    </h2>
+  );
+};
 
 export default function Header({ scrollContainer }) {
   const [scrolled, setScrolled] = useState(false);
@@ -28,11 +40,11 @@ export default function Header({ scrollContainer }) {
         scrolled ? 'bg-opacity-90' : 'bg-opacity-50'
       } flex justify-center text-center items-center transition-all duration-1000`}
     >
-      <h2 className="w-32">Skills</h2>
-      <div className="flex justify-center">
-        <img src="/Logo_Vimage.png" className={`${scrolled ? 'h-12' : 'h-24'} transition-all duration-1000`}></img>
-      </div>
-      <h2 className="w-32">Projects</h2>
+      <CustomLink title={'Skills'} />
+      <motion.div className="flex justify-center" whileHover={{ scale: 1.1 }} transition={{ delay: 0, duration: 0.2 }}>
+        <img src="/Logo_Vimage.png" className={`${scrolled ? 'h-12' : 'h-24'} transition-all duration-300`}></img>
+      </motion.div>
+      <CustomLink title={'Projects'} />
     </div>
   );
 }

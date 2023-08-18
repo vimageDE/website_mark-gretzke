@@ -18,7 +18,10 @@ export default function Home() {
   const scrollContainerRef = useRef(null);
 
   return (
-    <div className="h-screen overflow-y-scroll snap-y scroll-smooth" ref={scrollContainerRef}>
+    <div
+      className="h-screen overflow-x-hidden overflow-y-scroll snap-y scroll-smooth snap-mandatory"
+      ref={scrollContainerRef}
+    >
       <div
         className="fixed top-0 left-0 w-full h-full object-cover -z-50"
         style={{ backgroundImage: `url(${bgImage})` }}
@@ -36,6 +39,8 @@ export default function Home() {
         </div>
         <div className="snap-center">
           <Skills />
+        </div>
+        <div className="snap-center">
           <SoftwareSection />
         </div>
         <div className="snap-center">
