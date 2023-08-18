@@ -1,16 +1,23 @@
+import { useRef, useEffect } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Software } from './Component_Software';
 
 export default function SoftwareSection() {
+  const isinView = useInView({
+    margin: '0px -500px -50px 0px',
+  });
   return (
-    <div className="h-[500px] flex flex-col justify-center items-center bg-white animate__animated animate__fadeIn">
-      <h2 className="text-6xl pb-8 text-black">Software & Languages</h2>
+    <div className="h-[500px] flex flex-col justify-center items-center bg-white ">
+      <motion.h2 className="text-6xl pb-8 text-black" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        Software & Languages
+      </motion.h2>
       <div className="grid grid-cols-6 text-center py-2 w-full">
-        <Software software={'C4D'} className="animate__animated animate__bounce" />
-        <Software software={'After Effects'} className="animate__animated animate__shakeX" />
-        <Software software={'Octane'} className="animate__animated animate__pulse" />
-        <Software software={'Unity'} className="animate__animated animate__rubberBand" />
-        <Software software={'Solidity'} className="animate__animated animate__tada" />
-        <Software software={'Webdev'} className="animate__animated animate__wobble" />
+        <Software software={'C4D'} className="" />
+        <Software software={'After Effects'} className="" />
+        <Software software={'Octane'} className="" />
+        <Software software={'Unity'} className="" />
+        <Software software={'Solidity'} className="" />
+        <Software software={'Webdev'} className="" />
       </div>
     </div>
   );
