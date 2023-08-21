@@ -1,10 +1,62 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useMotionValue, useInView } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
 
 export default function Hero() {
   const clientsImage = '/Clients_all.png';
+  const allClients = [
+    'Apache207',
+    'Constantinfilm',
+    'DeutscheOperAmRhein',
+    'GoodYear',
+    'Gym80',
+    'Levelup',
+    'Masterplan',
+    'Purelei',
+    'Snocks',
+    'ZDF',
+  ];
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, margin: '500px 0px 0px 0px' });
+
+  const mouseX = useMotionValue(null);
+  const [scaleValues, setScaleValues] = useState(Array(allClients.length).fill(1));
+
+  useEffect(() => {
+    const updateMouseX = (event) => {
+      const mouseXPosition = event.clientX;
+
+      const maxScale = 1;
+      const minScale = 0.65;
+
+      // Compute scale for each image
+      const newScaleValues = allClients.map((_, index) => {
+        const imgElement = document.getElementById(`client-${index}`);
+        if (imgElement) {
+          const rect = imgElement.getBoundingClientRect();
+          const distanceFromMouse = Math.abs(rect.left + rect.width / 2 - mouseXPosition);
+
+          const maxDistance = 8 * rect.width;
+          const minDistance = 0;
+
+          // Linearly interpolate the scale based on the distance
+          let scale =
+            minScale + ((maxScale - minScale) * (distanceFromMouse - minDistance)) / (maxDistance - minDistance);
+          scale = Math.max(minScale, Math.min(maxScale, scale)); // Clamp the scale between min and max
+
+          return scale;
+        }
+        return 1;
+      });
+
+      setScaleValues(newScaleValues);
+    };
+
+    window.addEventListener('mousemove', updateMouseX);
+
+    return () => {
+      window.removeEventListener('mousemove', updateMouseX);
+    };
+  }, [allClients]);
 
   return (
     <div className="relative h-[800px] bg-black bg-opacity-10 flex flex-col">
@@ -74,10 +126,26 @@ export default function Hero() {
           transition={{ delay: 0.9, duration: 0.9 }}
         >
           <div className="pl-8 text-xs text-left text-white -mb-6">worked on projects for:</div>
-          <div
-            className="bg-contain h-40 w-screen text-white"
-            style={{ backgroundImage: `url(${clientsImage})` }}
-          ></div>
+          <div className="w-screen text-white flex justify-center">
+            {allClients.map((imageSrc, index) => (
+              <motion.div
+                key={index}
+                id={`client-${index}`}
+                className="bg-contain h-40 w-40"
+                style={{ backgroundImage: `url(/clients/clients_${imageSrc}.png)` }}
+                transformTemplate={({ scale }) => `scale(${scale})`}
+                custom={mouseX}
+                animate={{
+                  scale: scaleValues[index],
+                }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 300,
+                  damping: 30,
+                }}
+              ></motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </div>

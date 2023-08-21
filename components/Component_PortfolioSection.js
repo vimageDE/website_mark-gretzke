@@ -62,7 +62,7 @@ export default function PortfolioSection() {
 
         <div
           key={project.title}
-          className={`project-slide active relative`}
+          className={`project-slide active relative overflow-hidden`}
           style={{ width: '100vw', maxWidth: videoHeight > videoWidth ? '500px' : '1400px', height: '37vw' }} // Maintaining 21:9 aspect ratio
         >
           <video
@@ -76,14 +76,31 @@ export default function PortfolioSection() {
           ></video>
 
           <div
-            className="absolute bottom-0 w-full p-8 bg-gradient-to-t from-black to-transparent"
+            className="absolute -bottom-72 w-full py-6 bg-gradient-to-t from-black to-transparent"
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
           >
-            <h2 className="text-6xl text-white">{project.title}</h2>
-            <p className={`${videoHeight > videoWidth ? 'px-4' : 'px-64'}  ${hover ? 'block' : 'hidden'}`}>
-              {project.description}
-            </p>
+            <motion.div initial={{ y: 120 }} whileHover={{ y: 0 }} className="w-full h-full relative ">
+              <div className="bg-auto h-full" style={{ backgroundImage: 'url(/gradient.png)' }}>
+                <h2 className="text-6xl text-white">{project.title}</h2>
+
+                {/* Description */}
+                <motion.p
+                  className={`${
+                    videoHeight > videoWidth ? 'px-4' : 'px-64'
+                  } h-[200px] opacity-0 transition-opacity bg-auto duration-300 ${hover ? 'opacity-100' : ''}`}
+                >
+                  {project.description}
+                </motion.p>
+              </div>
+
+              {/* Three Dots */}
+              <motion.div className="absolute left-0 top-0 opacity-0 transition-opacity duration-300 ${hover ? '' : 'opacity-100'}">
+                ...
+              </motion.div>
+
+              <div className="h-[200px] "></div>
+            </motion.div>
           </div>
         </div>
         <button

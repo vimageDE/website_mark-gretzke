@@ -57,11 +57,16 @@ export default function About() {
               className="h-[1px] bg-white my-4"
               initial={{ width: '0%' }}
               whileInView={{ width: '100%' }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.5, duration: 1.5 }}
             >
               &nbsp;
             </motion.span>
-            <motion.div variants={containerVariants} initial="initial" whileInView="whileInView">
+            <motion.div
+              variants={containerVariants}
+              initial="initial"
+              whileInView="whileInView"
+              className="flex flex-col space-y-2"
+            >
               <motion.div className="flex space-x-2" variants={itemVariants}>
                 <div className="uppercase font-black">Education:</div>
                 <div>Bachelof or Arts - HS Mainz</div>
@@ -80,7 +85,7 @@ export default function About() {
               </motion.div>
               <motion.div className="flex space-x-2" variants={itemVariants}>
                 <div className="uppercase font-black">place of residence:</div>
-                <div>Ludwigshafen am Rhein</div>
+                <div>Germany - Ludwigshafen am Rhein</div>
               </motion.div>
             </motion.div>
           </div>
