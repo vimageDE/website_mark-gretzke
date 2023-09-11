@@ -42,9 +42,9 @@ export default function Home() {
 
   return (
     <div>
-      <div className="absolute w-full h-full overflow-y-hidden" style={{ pointerEvents: 'none' }}>
+      <div className="absolute w-full h-screen overflow-y-hidden overflow-x-hidden" style={{ pointerEvents: 'none' }}>
         <WebgiViewer
-          className={'h-full w-full'}
+          className={'h-screen w-full overflow-y-hidden overflow-x-hidden'}
           scrollPosition={scrollPosition}
           scrollContainerRef={scrollContainerRef}
         />
@@ -72,13 +72,13 @@ export default function Home() {
           <div className="snap-center skills-section">
             <Skills />
           </div>
-          <div className="snap-center">
+          <div className="snap-center software-section">
             <SoftwareSection />
           </div>
-          <div className="snap-center">
+          <div className="snap-center portfolio-section">
             <PortfolioSection />
           </div>
-          <div className="snap-start">
+          <div className="snap-start about-section">
             <About />
           </div>
         </div>

@@ -7,9 +7,153 @@ import { useThree } from '@react-three/fiber';
 
 gsap.registerPlugin(ScrollTrigger);
 
-function Spaceship() {
+function Spaceship({ scrollContainerRef }) {
   const gltf = useLoader(GLTFLoader, '/3D/scene.glb');
   const mesh = useRef(null);
+
+  useEffect(() => {
+    if (mesh.current) {
+      mesh.current.position.set(0, 0, 0);
+      mesh.current.rotation.set(0, 0, 0);
+
+      // Create an initial timeline for the startup animation
+      /*const initTimeline = gsap.timeline();
+      initTimeline.fromTo(
+        mesh.current.position,
+        { x: 0, y: 0, z: -5 }, // initial position
+        { x: 0, y: 0, z: 0, duration: 0.5 } // final position
+      );
+      initTimeline.fromTo(
+        mesh.current.rotation,
+        { x: 0, y: 0, z: 0 }, // initial rotation
+        { x: 0, y: 0, z: 0, duration: 0.5 },
+        '-=1' // final rotation
+      ); */
+
+      // Set the new standard position here
+      mesh.current.position.set(0, 0, 0);
+      mesh.current.rotation.set(0, 0, 0);
+      // First animation for skills-section
+      const tl1 = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.skills-section',
+          start: 'top bottom',
+          end: 'top top',
+          scrub: 4,
+          immediateRender: true,
+          scroller: scrollContainerRef.current,
+        },
+      });
+
+      tl1.to(mesh.current.position, {
+        x: 2.5,
+        y: -8,
+        z: 0.4,
+        duration: 4,
+      });
+      // Animate rotation
+      tl1.to(
+        mesh.current.rotation,
+        {
+          x: 0,
+          y: 0.2,
+          z: 0,
+          duration: 4,
+        },
+        '-=4'
+      ); // This will make the rotation animation start 2 seconds earlier, which means it will start at the same time as the position animation.
+
+      // Second animation for software-section
+      const tl2 = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.software-section',
+          start: 'top bottom',
+          end: 'top top',
+          scrub: 2,
+          immediateRender: true,
+          scroller: scrollContainerRef.current,
+        },
+      });
+
+      tl2.to(mesh.current.position, {
+        x: 0,
+        y: -10,
+        z: 1,
+        duration: 2,
+      });
+      // Animate rotation
+      tl2.to(
+        mesh.current.rotation,
+        {
+          x: 0.6,
+          y: -0.5,
+          z: 0,
+          duration: 2,
+        },
+        '-=2'
+      ); // This will make the rotation animation start 2 seconds earlier, which means it will start at the same time as the position animation.
+
+      // Second animation for software-section
+      const tl3 = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.portfolio-section',
+          start: 'top bottom',
+          end: 'top top',
+          scrub: 2,
+          immediateRender: true,
+          scroller: scrollContainerRef.current,
+        },
+      });
+
+      tl3.to(mesh.current.position, {
+        x: -3.5,
+        y: -16,
+        z: 1.7,
+        duration: 2,
+      });
+      // Animate rotation
+      tl3.to(
+        mesh.current.rotation,
+        {
+          x: 0.5,
+          y: -0.05,
+          z: 0,
+          duration: 2,
+        },
+        '-=2'
+      ); // This will make the rotation animation start 2 seconds earlier, which means it will start at the same time as the position animation.
+
+      const tl4 = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.about-section',
+          start: 'top bottom',
+          end: 'top top',
+          scrub: 2,
+          immediateRender: true,
+          scroller: scrollContainerRef.current,
+        },
+      });
+
+      tl4.to(mesh.current.position, {
+        x: -8,
+        y: -19,
+        z: 1.7,
+        duration: 2,
+      });
+      // Animate rotation
+      tl4.to(
+        mesh.current.rotation,
+        {
+          x: 0.5,
+          y: -0.05,
+          z: 0,
+          duration: 2,
+        },
+        '-=2'
+      ); // This will make the rotation animation start 2 seconds earlier, which means it will start at the same time as the position animation.
+    }
+  }, [mesh.current]);
+
   return <primitive object={gltf.scene} scale={1} ref={mesh} />;
 }
 
@@ -24,21 +168,78 @@ function CameraSetup({ scrollPosition, scrollContainerRef }) {
     camera.fov = 50;
     camera.updateProjectionMatrix();
 
-    const tl = gsap.timeline({
+    const tl1 = gsap.timeline({
       scrollTrigger: {
         trigger: '.skills-section',
         start: 'top bottom', // When the top of the trigger hits the bottom of the viewport
         end: 'top top', // When the top of the trigger hits the top of the viewport
-        markers: true,
-        scrub: 2,
+        // markers: true,
+        scrub: 0,
         immediateRender: true,
         scroller: scrollContainerRef.current, // Pass your custom scroller here
       },
     });
 
-    tl.to(camera.position, {
+    tl1.to(camera.position, {
       x: 0.05,
-      y: 3,
+      y: -6,
+      z: 7,
+      duration: 2,
+    });
+
+    const tl2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.software-section',
+        start: 'top bottom', // When the top of the trigger hits the bottom of the viewport
+        end: 'top top', // When the top of the trigger hits the top of the viewport
+        // markers: true,
+        scrub: 0,
+        immediateRender: true,
+        scroller: scrollContainerRef.current, // Pass your custom scroller here
+      },
+    });
+
+    tl2.to(camera.position, {
+      x: 0.05,
+      y: -12,
+      z: 7,
+      duration: 2,
+    });
+
+    const tl3 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.portfolio-section',
+        start: 'top bottom', // When the top of the trigger hits the bottom of the viewport
+        end: 'top top', // When the top of the trigger hits the top of the viewport
+        // markers: true,
+        scrub: 0,
+        immediateRender: true,
+        scroller: scrollContainerRef.current, // Pass your custom scroller here
+      },
+    });
+
+    tl3.to(camera.position, {
+      x: 0.05,
+      y: -18,
+      z: 7,
+      duration: 2,
+    });
+
+    const tl4 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.about-section',
+        start: 'top bottom', // When the top of the trigger hits the bottom of the viewport
+        end: 'top top', // When the top of the trigger hits the top of the viewport
+        // markers: true,
+        scrub: 0,
+        immediateRender: true,
+        scroller: scrollContainerRef.current, // Pass your custom scroller here
+      },
+    });
+
+    tl4.to(camera.position, {
+      x: 0.05,
+      y: -24,
       z: 7,
       duration: 2,
     });
@@ -50,9 +251,9 @@ function CameraSetup({ scrollPosition, scrollContainerRef }) {
 export default function WebgiViewer({ scrollPosition, className, scrollContainerRef }) {
   return (
     <div className={className}>
-      <Canvas className="object-cover z-50 h-screen" style={{ pointerEvents: 'none' }}>
+      <Canvas className=" z-50" style={{ pointerEvents: 'none' }}>
         <ambientLight intensity={5} />
-        <Spaceship />
+        <Spaceship scrollContainerRef={scrollContainerRef} />
         <CameraSetup scrollPosition={scrollPosition} scrollContainerRef={scrollContainerRef} />
       </Canvas>
     </div>
