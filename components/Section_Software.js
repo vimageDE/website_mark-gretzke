@@ -81,42 +81,42 @@ const Software = ({ software, onSoftwareSelected, onBackClicked, isSelected, som
   };
 
   return (
-    <motion.div
-      ref={softwareRef}
-      initial="initial"
-      animate={{ scale: selectedScale, x, y, opacity }}
-      variants={itemVariants}
-      onHoverStart={() => {
-        if (!somethingSelected) setSelectedScale(1.5);
-      }}
-      onHoverEnd={() => {
-        if (!somethingSelected) setSelectedScale(1);
-      }}
-    >
-      <div
-        onClick={() => onSoftwareSelected(software)}
-        className={`w-16 h-16 bg-contain mx-auto mb-1`}
-        style={{ backgroundImage: `url(${symbol})` }}
-      ></div>
-      <div onClick={() => onSoftwareSelected(software)} className="text-xs">
-        {software}
-      </div>
-      {isSelected ? (
-        <motion.div className="absolute" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <p>This is a test for a text</p>
-          <motion.div
-            whileHover={{ scale: 1.5 }}
-            className="bg-gold py-1 px-4 rounded cursor-pointer mt-8"
-            onClick={() => {
-              onBackClicked();
-            }}
-          >
-            <h2 className="text-black text-xl">BACK</h2>
+    <motion.div variants={itemVariants}>
+      <motion.div
+        ref={softwareRef}
+        animate={{ scale: selectedScale, x, y, opacity }}
+        onHoverStart={() => {
+          if (!somethingSelected) setSelectedScale(1.5);
+        }}
+        onHoverEnd={() => {
+          if (!somethingSelected) setSelectedScale(1);
+        }}
+      >
+        <div
+          onClick={() => onSoftwareSelected(software)}
+          className={`w-16 h-16 bg-contain mx-auto mb-1`}
+          style={{ backgroundImage: `url(${symbol})` }}
+        ></div>
+        <div onClick={() => onSoftwareSelected(software)} className="text-xs">
+          {software}
+        </div>
+        {isSelected ? (
+          <motion.div className="absolute left-1/2 -translate-x-1/2" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <p className="w-[200px]">This is a test for a text</p>
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              className="bg-gold py-1 px-4 rounded cursor-pointer mt-8"
+              onClick={() => {
+                onBackClicked();
+              }}
+            >
+              <h2 className="text-black text-xl">BACK</h2>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      ) : (
-        <></>
-      )}
+        ) : (
+          <></>
+        )}
+      </motion.div>
     </motion.div>
   );
 };
