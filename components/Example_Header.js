@@ -14,25 +14,15 @@ const CustomLink = ({ title }) => {
   );
 };
 
-export default function Header({ scrollContainer }) {
+export default function Header({ scrollPosition }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = scrollContainer.current.scrollTop > 450; // Adjust this value if needed
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
-    };
-
-    // Attach the event listener to the scrolling container
-    scrollContainer.current.addEventListener('scroll', handleScroll);
-
-    return () => {
-      // Cleanup: remove the event listener when the component is unmounted
-      scrollContainer.current.removeEventListener('scroll', handleScroll);
-    };
-  }, [scrolled, scrollContainer]);
+    const isScrolled = scrollPosition > 450; // Adjust this value if needed
+    if (isScrolled !== scrolled) {
+      setScrolled(isScrolled);
+    }
+  }, [scrolled, scrollPosition]);
 
   return (
     <div
