@@ -11,6 +11,7 @@
   "dependencies": {
     "@react-three/drei": "^9.83.9",
     "@react-three/fiber": "^8.14.1",
+    "@react-three/postprocessing": "^2.15.1",
     "animate.css": "^4.1.1",
     "framer-motion": "^10.16.0",
     "gsap": "^3.12.2",

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 
 export default function About() {
   const aboutImage = '/about_Mark.jpg';
+  const aboutImage1 = '/aboutImage1.png';
 
   const containerVariants = {
     initial: {
@@ -32,13 +33,13 @@ export default function About() {
   };
 
   return (
-    <div className="h-screen py-64 bg-black bg-opacity-95">
+    <div className="h-screen py-64 bg-opacity-95 bg-cover" style={{ backgroundImage: `url(${aboutImage1})` }}>
       <div className="flex justify-center">
         <div className="w-2/5">
-          <div
+          {/* <div
             className="bg-contain bg-no-repeat h-96 w-96 ml-auto rounded-md"
             style={{ backgroundImage: `url(${aboutImage})` }}
-          ></div>
+          ></div> */}
         </div>
         <div className="w-3/5 pl-12 pr-32 text-white">
           <div className="h-full relative flex flex-col">

@@ -51,22 +51,14 @@ export default function Skills() {
   return (
     <div className="bg-black h-screen w-full bg-opacity-80 text-white text-center flex justify-center">
       <div className="my-auto">
-        <h2 className="text-6xl pb-8">Skills</h2>
-        <div className="flex space-x-32 items-start">
+        <h2 className="text-6xl pb-8 text-center">Skills</h2>
+        <div className="grid grid-cols-4 gap-32 items-start">
           <Skill
             title="Animation"
             content={{
-              Modeling: 60,
-              Animation: 90,
-              Rendering: 95,
-            }}
-          />
-          <Skill
-            title="VFX"
-            content={{
-              Keying: 60,
-              Compositing: 95,
-              Animations: 55,
+              'Product Rendering': 95,
+              Commercials: 90,
+              VFX: 95,
             }}
           />
           <Skill
@@ -80,7 +72,7 @@ export default function Skills() {
           <Skill
             title="Blockchain"
             content={{
-              Contracts: 75,
+              Contracts: 70,
               Tests: 85,
               Frontend: 90,
             }}
@@ -88,8 +80,8 @@ export default function Skills() {
           <Skill
             title="Webdev"
             content={{
-              Backend: 85,
-              Design: 90,
+              Backend: 80,
+              Coding: 85,
               'UX/UI': 85,
             }}
           />

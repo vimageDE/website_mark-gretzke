@@ -18,7 +18,7 @@ export default function PortfolioSection() {
   const project = projects[activeTopic][activeProject];
 
   return (
-    <div className="portfolio-container bg-black bg-opacity-80 text-white text-center py-16">
+    <div className="portfolio-container h-screen bg-black bg-opacity-80 text-white text-center py-16">
       <div className="pt-12">
         <h2 className="text-white text-6xl">Projects</h2>
         <div className="">a small selection</div>

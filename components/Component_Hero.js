@@ -103,7 +103,7 @@ export default function Hero() {
               }`,
             }}
           >
-            <motion.div className="mt-12 " whileHover={{ scale: 1.4 }}>
+            <motion.div className="mt-6 " whileHover={{ scale: 1.4 }}>
               <motion.button
                 className="px-8 py-2 rounded-md"
                 initial={{ backgroundColor: '#FFFFFF' }}

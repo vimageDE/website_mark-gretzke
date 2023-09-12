@@ -30,3 +30,35 @@
     }
       
 }
+
+/* in your styles.css or the equivalent */
+.bubble {
+    @apply absolute opacity-0;
+    bottom: -600px;
+    animation: rise 5s infinite, sway 1s infinite;
+    background-image: url('/bubbles.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  @keyframes rise {
+    0% {
+      bottom: -600px;
+      opacity: .6;
+    }
+    100% {
+      bottom: calc(100% + 600px);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes sway {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(20px);
+    }
+  }
+  

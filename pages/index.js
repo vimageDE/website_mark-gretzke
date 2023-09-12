@@ -15,6 +15,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Canvas, useLoader, useFrame } from '@react-three/fiber';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { OrbitControls, Stage } from '@react-three/drei';
+import BubbleComponent from '../components/Component_Bubbles';
 
 const bgImage = '/background-image1.jpg';
 
@@ -27,7 +28,7 @@ export default function Home() {
       const scrollTop = scrollContainerRef.current.scrollTop; // Adjust this value if needed
       if (scrollTop !== scrollPosition) {
         setScrollPosition(scrollTop);
-        console.log('ScrollPosition: ', scrollTop);
+        // console.log('ScrollPosition: ', scrollTop);
       }
     };
 
@@ -49,6 +50,7 @@ export default function Home() {
           scrollContainerRef={scrollContainerRef}
         />
       </div>
+      <BubbleComponent />
       <div
         className="h-screen overflow-x-hidden overflow-y-scroll snap-y scroll-smooth snap-mandatory"
         ref={scrollContainerRef}

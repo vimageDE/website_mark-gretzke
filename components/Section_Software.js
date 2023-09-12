@@ -81,7 +81,7 @@ const Software = ({ software, onSoftwareSelected, onBackClicked, isSelected, som
   };
 
   return (
-    <motion.div variants={itemVariants}>
+    <motion.div variants={itemVariants} className="cursor-pointer">
       <motion.div
         ref={softwareRef}
         animate={{ scale: selectedScale, x, y, opacity }}
@@ -97,12 +97,12 @@ const Software = ({ software, onSoftwareSelected, onBackClicked, isSelected, som
           className={`w-16 h-16 bg-contain mx-auto mb-1`}
           style={{ backgroundImage: `url(${symbol})` }}
         ></div>
-        <div onClick={() => onSoftwareSelected(software)} className="text-xs">
+        <div onClick={() => onSoftwareSelected(software)} className="text-xs text-black ">
           {software}
         </div>
         {isSelected ? (
           <motion.div className="absolute left-1/2 -translate-x-1/2" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <p className="w-[200px]">This is a test for a text</p>
+            <p className="w-[200px] text-black">This is a test for a text</p>
             <motion.div
               whileHover={{ scale: 1.1 }}
               className="bg-gold py-1 px-4 rounded cursor-pointer mt-8"
@@ -123,6 +123,7 @@ const Software = ({ software, onSoftwareSelected, onBackClicked, isSelected, som
 
 export default function SoftwareSection() {
   const [selectedSoftware, setSelectedSoftware] = useState(null);
+  const softwareImage1 = '/softwareImage5.png';
 
   const isinView = useInView({
     margin: '0px -500px -50px 0px',
@@ -139,12 +140,15 @@ export default function SoftwareSection() {
   };
 
   return (
-    <div className="h-screen flex relative overflow-hidden">
-      <div className="h-full w-full absolute bg-white -z-20" />
-      <div
+    <div
+      className="h-screen flex relative overflow-hidden bg-cover"
+      style={{ backgroundImage: `url(${softwareImage1})` }}
+    >
+      <div className="h-full w-full absolute bg-white bg-opacity-0 -z-20" />
+      {/* <div
         className="absolute bg-contain bg-no-repeat h-[125%] w-full -left-80 -bottom-32 -z-10"
         style={{ backgroundImage: `url(${bgImage})` }}
-      ></div>
+      ></div> */}
       <div className="flex w-full justify-center items-center">
         <div className="w-2/5"></div>
         <div className="w-3/5 px-8 flex flex-col justify-center items-center">
