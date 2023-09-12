@@ -154,7 +154,7 @@ function Spaceship({ scrollContainerRef }) {
     }
   }, [mesh.current]);
 
-  return <primitive object={gltf.scene} scale={1} ref={mesh} />;
+  return <primitive object={gltf.scene} scale={0.8} ref={mesh} />;
 }
 
 function CameraSetup({ scrollPosition, scrollContainerRef }) {
@@ -252,7 +252,9 @@ export default function WebgiViewer({ scrollPosition, className, scrollContainer
   return (
     <div className={className}>
       <Canvas className=" z-50" style={{ pointerEvents: 'none' }}>
-        <ambientLight intensity={5} />
+        {/* <ambientLight intensity={5} /> */}
+        <ambientLight intensity={0.7} />
+        <directionalLight position={[1, 1, 1]} intensity={3} />
         <Spaceship scrollContainerRef={scrollContainerRef} />
         <CameraSetup scrollPosition={scrollPosition} scrollContainerRef={scrollContainerRef} />
       </Canvas>
