@@ -32,7 +32,7 @@ export default function About() {
   };
 
   return (
-    <div className="h-screen py-64 bg-black">
+    <div className="h-screen py-64 bg-black bg-opacity-95">
       <div className="flex justify-center">
         <div className="w-2/5">
           <div

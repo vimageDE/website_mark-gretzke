@@ -4,12 +4,23 @@ import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useThree } from '@react-three/fiber';
+import { Environment } from '@react-three/drei';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function Spaceship({ scrollContainerRef }) {
   const gltf = useLoader(GLTFLoader, '/3D/scene.glb');
   const mesh = useRef(null);
+
+  // This is where we'll adjust the material properties.
+  useEffect(() => {
+    gltf.scene.traverse((child) => {
+      if (child.isMesh) {
+        // If the object is a mesh, modify its material here.
+        child.material.roughness = 0.15; // Adjust to your liking.
+      }
+    });
+  }, [gltf]);
 
   useEffect(() => {
     if (mesh.current) {
@@ -39,7 +50,7 @@ function Spaceship({ scrollContainerRef }) {
           trigger: '.skills-section',
           start: 'top bottom',
           end: 'top top',
-          scrub: 4,
+          scrub: 6,
           immediateRender: true,
           scroller: scrollContainerRef.current,
         },
@@ -252,9 +263,9 @@ export default function WebgiViewer({ scrollPosition, className, scrollContainer
   return (
     <div className={className}>
       <Canvas className=" z-50" style={{ pointerEvents: 'none' }}>
-        {/* <ambientLight intensity={5} /> */}
-        <ambientLight intensity={0.7} />
-        <directionalLight position={[1, 1, 1]} intensity={3} />
+        <ambientLight intensity={0.15} />
+        <directionalLight position={[1, 1, 1]} intensity={1} />
+        <Environment files={'/3D/env.hdr'} />
         <Spaceship scrollContainerRef={scrollContainerRef} />
         <CameraSetup scrollPosition={scrollPosition} scrollContainerRef={scrollContainerRef} />
       </Canvas>

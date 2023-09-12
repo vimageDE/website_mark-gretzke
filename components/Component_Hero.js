@@ -61,8 +61,8 @@ export default function Hero() {
   return (
     <div className="relative h-[800px] bg-black bg-opacity-10 flex flex-col">
       {/* Background Video */}
-      <video autoPlay muted loop playsInline className="fixed top-0 left-0 w-full h-full object-cover -z-40 blur-lg">
-        <source src="/background-video.mp4" type="video/mp4" />
+      <video autoPlay muted loop playsInline className="fixed top-0 left-0 w-full h-full object-cover -z-40 blur-md">
+        <source src="/bg-videos/underwater37712.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
@@ -71,7 +71,7 @@ export default function Hero() {
 
       {/* Content */}
       <div className="h-full relative flex flex-col items-center justify-center z-10">
-        <div className="flex flex-col items-center justify-center mt-12" ref={ref}>
+        <div className="flex flex-col items-center justify-center mb-24" ref={ref}>
           <h2
             className="text-9xl"
             style={{
