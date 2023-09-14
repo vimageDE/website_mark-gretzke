@@ -190,7 +190,6 @@ function CameraSetup({ scrollPosition, scrollContainerRef, directionalLightRef }
     camera.rotation.set(0, 0, 0);
     camera.fov = 50;
     camera.updateProjectionMatrix();
-    directionalLightRef.current.intensity = 5;
 
     const tl1 = gsap.timeline({
       scrollTrigger: {
@@ -209,17 +208,7 @@ function CameraSetup({ scrollPosition, scrollContainerRef, directionalLightRef }
       y: -6,
       z: 7,
       duration: 0.2,
-    }); /*
-      .to(
-        directionalLightRef.current,
-        {
-          // Animate the light's intensity
-          intensity: 5, // Set the desired intensity
-          duration: 0.2, // Animation duration
-        },
-        '<'
-      );
-*/
+    });
     const tl2 = gsap.timeline({
       scrollTrigger: {
         trigger: '.software-section',
@@ -237,17 +226,7 @@ function CameraSetup({ scrollPosition, scrollContainerRef, directionalLightRef }
       y: -12,
       z: 7,
       duration: 0.2,
-    }); /*
-      .to(
-        directionalLightRef.current,
-        {
-          // Animate the light's intensity
-          intensity: 8, // Set the desired intensity
-          duration: 0.2, // Animation duration
-        },
-        '<'
-      ); // This makes sure the light animation starts at the same time as the camera animation
-*/
+    });
     const tl3 = gsap.timeline({
       scrollTrigger: {
         trigger: '.portfolio-section',
@@ -265,17 +244,7 @@ function CameraSetup({ scrollPosition, scrollContainerRef, directionalLightRef }
       y: -18,
       z: 7,
       duration: 0.2,
-    }); /*
-      .to(
-        directionalLightRef.current,
-        {
-          // Animate the light's intensity
-          intensity: 1, // Set the desired intensity
-          duration: 0.2, // Animation duration
-        },
-        '<'
-      );
-*/
+    });
     const tl4 = gsap.timeline({
       scrollTrigger: {
         trigger: '.about-section',
@@ -311,7 +280,7 @@ export default function WebgiViewer({ scrollPosition, className, scrollContainer
         {/* <SMAA /> */}
         {/* <SSAO /> */}
         {/* <ambientLight intensity={0.25} /> */}
-        <directionalLight position={[1, 1, 1]} intensity={1.8} ref={directionalLightRef} />
+        <directionalLight position={[1, 1, 1]} intensity={5} ref={directionalLightRef} />
         {/* <Environment files={'/3D/env.hdr'} /> */}
         <Spaceship scrollContainerRef={scrollContainerRef} />
         <CameraSetup
