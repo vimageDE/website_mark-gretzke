@@ -7,7 +7,7 @@ import About from '../components/Component_About';
 import Intro from '../components/Component_Intro';
 import Skills from '../components/Component_Skills';
 import Projects from '../components/Component_Projects';
-import PortfolioSection from '../components/Component_PortfolioSection';
+import PortfolioSection from '../components/Section_Portfolio';
 import SoftwareSection from '../components/Section_Software';
 import ScrollSnapExample from '../components/Component_Test';
 import WebgiViewer from '../components/Component_3D';
@@ -28,7 +28,7 @@ export default function Home() {
       const scrollTop = scrollContainerRef.current.scrollTop; // Adjust this value if needed
       if (scrollTop !== scrollPosition) {
         setScrollPosition(scrollTop);
-        // console.log('ScrollPosition: ', scrollTop);
+        console.log('ScrollPosition: ', scrollTop);
       }
     };
 

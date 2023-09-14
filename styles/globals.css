@@ -41,6 +41,24 @@
     background-position: center;
     background-repeat: no-repeat;
   }
+
+  .masked-video {
+    -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 15%, rgba(0,0,0,0) 70%);
+    mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  }
+
+  .animatedPath {
+    transition: transform 0.7s ease-in-out;
+  }
+
+  .mask {
+    mask-image: url('/MaskTest.png');
+    mask-size: 100%;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-mode:luminance;
+    -webkit-mask-mode:luminance;
+  }
   
   @keyframes rise {
     0% {

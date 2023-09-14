@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 function BubbleComponent() {
   useEffect(() => {
     function createBubble() {
+      return;
       const bubble = document.createElement('div');
       bubble.classList.add('bubble', 'absolute', '-bottom-96', 'opacity-0');
       bubble.style.left = `${Math.random() * 500}vw`;
