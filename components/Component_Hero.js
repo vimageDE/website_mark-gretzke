@@ -59,7 +59,7 @@ export default function Hero() {
   }, [allClients]);
 
   return (
-    <div className="relative h-[800px] bg-black bg-opacity-10 flex flex-col">
+    <div className="relative h-[84%] bg-black bg-opacity-10 flex flex-col">
       {/* Background Video */}
       <video autoPlay muted loop playsInline className="fixed top-0 left-0 w-full h-full object-cover -z-40 blur-md">
         <source src="/bg-videos/underwater37712.mp4" type="video/mp4" />
@@ -125,13 +125,13 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.9 }}
         >
-          <div className="pl-8 text-xs text-left text-white -mb-6">worked on projects for:</div>
+          {/* <div className="pl-8 text-xs text-left text-white -mb-6">worked on projects for:</div> */}
           <div className="w-screen text-white flex justify-center">
             {allClients.map((imageSrc, index) => (
               <motion.div
                 key={index}
                 id={`client-${index}`}
-                className="bg-contain h-40 w-40"
+                className="bg-contain h-40 w-40 bg-no-repeat"
                 style={{ backgroundImage: `url(/clients/clients_${imageSrc}.png)` }}
                 transformTemplate={({ scale }) => `scale(${scale})`}
                 custom={mouseX}

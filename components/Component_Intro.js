@@ -1,7 +1,7 @@
 export default function Intro() {
   return (
-    <h2 className="bg-white text-center text-black py-16 text-2xl">
-      10 years in design and 4 years of coding experience
-    </h2>
+    <div className="bg-white h-[16%] flex justify-center items-center text-center">
+      <h2 className="text-black text-2xl text-center">10 years in design and 4 years of coding experience</h2>
+    </div>
   );
 }

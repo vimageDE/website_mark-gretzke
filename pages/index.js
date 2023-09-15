@@ -28,7 +28,7 @@ export default function Home() {
       const scrollTop = scrollContainerRef.current.scrollTop; // Adjust this value if needed
       if (scrollTop !== scrollPosition) {
         setScrollPosition(scrollTop);
-        console.log('ScrollPosition: ', scrollTop);
+        // console.log('ScrollPosition: ', scrollTop);
       }
     };
 
@@ -66,8 +66,8 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header scrollPosition={scrollPosition} />
-        <div className="">
-          <div className="snap-start">
+        <div className="scroll-section">
+          <div className="snap-start h-screen">
             <Hero />
             <Intro />
           </div>

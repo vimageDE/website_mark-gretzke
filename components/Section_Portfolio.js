@@ -18,6 +18,7 @@ export default function PortfolioSection() {
   const [activeProject, setActiveProject] = useState(0); // Using index here
   const [videoWidth, setVideoWidth] = useState(null);
   const [videoHeight, setVideoHeight] = useState(null);
+  const [hoverScale, setHoverScale] = useState({});
 
   const handleMetadataLoaded = (event) => {
     setVideoWidth(event.target.videoWidth);
@@ -30,7 +31,7 @@ export default function PortfolioSection() {
     <div className="portfolio-container h-screen w-screen bg-black bg-opacity-80 text-white text-center py-16">
       <div className="pt-12">
         <h2 className="text-white text-6xl">Projects</h2>
-        <div className="">a small selection</div>
+        <div className="mb-6">a small overview of the last 10 years</div>
       </div>
 
       <div className="topics flex items-center justify-center">
@@ -41,8 +42,20 @@ export default function PortfolioSection() {
               setActiveTopic(topic);
               setActiveProject(0);
             }}
-            className={`w-32 ${topic === activeTopic ? 'text-gold' : 'text-white'}`}
-            whileHover={{ scale: 1.4 }}
+            className={`w-32 text-lg ${topic === activeTopic ? 'text-gold font-black' : 'text-white'}`}
+            // whileHover={{ scale: 1.4 }}
+            animate={{ scale: hoverScale[topic] }}
+            onHoverStart={() => {
+              setHoverScale((prev) => {
+                return { ...prev, [topic]: 1.25 };
+              });
+            }}
+            onHoverEnd={() =>
+              setHoverScale((prev) => {
+                return { ...prev, [topic]: 1 };
+              })
+            }
+            transition={{ ease: 'backOut', duration: 0.2 }}
           >
             {topic}
           </motion.button>
@@ -58,19 +71,21 @@ export default function PortfolioSection() {
         </div>
         {/* Projects */}
         <div className="">
-          <AnimatedSvgMask />
+          <AnimatedSvgMask project={project} />
         </div>
         {/* <PortfolioShowcase project={project} /> */}
       </div>
       <div className="dots-container flex justify-center mb-4">
         {projects[activeTopic].map((_, index) => (
-          <span
+          <motion.span
             key={index}
-            className={`dot mx-1 p-2 rounded-full cursor-pointer ${
+            className={`mx-2 dot p-3 rounded-full cursor-pointer ${
               index === activeProject ? 'bg-gold' : 'bg-white opacity-50'
             }`}
             onClick={() => setActiveProject(index)}
-          ></span>
+            whileHover={{ scale: 1.5 }}
+            transition={{ ease: 'backOut' }}
+          ></motion.span>
         ))}
       </div>
       <div>

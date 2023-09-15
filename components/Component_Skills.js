@@ -5,6 +5,7 @@ export function Skill({ title, content }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, margin: '0px 0px 0px 0px' });
   const [currentValues, setCurrentValues] = useState({});
+  const [hoverScale, setHoverScale] = useState({});
 
   useEffect(() => {
     const intervals = {};
@@ -38,9 +39,24 @@ export function Skill({ title, content }) {
       <h2 className="text-xl">{title}</h2>
       <div>
         {Object.keys(content).map((topic) => (
-          <div className="text-xl" key={topic}>
+          <motion.div
+            className="py-1 text-xl cursor-pointer"
+            key={topic}
+            animate={{ scale: hoverScale[topic] }}
+            transition={{ ease: 'backOut', duration: 0.2 }}
+            onHoverStart={() => {
+              setHoverScale((prevValues) => {
+                return { ...prevValues, [topic]: 1.25 };
+              });
+            }}
+            onHoverEnd={() => {
+              setHoverScale((prevValues) => {
+                return { ...prevValues, [topic]: 1 };
+              });
+            }}
+          >
             {topic} {currentValues[topic] || 0}%
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

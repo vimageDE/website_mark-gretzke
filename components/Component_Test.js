@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import anime from 'animejs';
@@ -106,7 +106,11 @@ export function VideoWithComplexClipPath() {
   );
 }
 
-export function AnimatedSvgMask() {
+export function AnimatedSvgMask({ project }) {
+  const [scaleFactor, setScaleFactor] = useState(0.28);
+  const blackOverlayRef = useRef(null);
+  const videoRef = useRef(null);
+
   useEffect(() => {
     anime({
       targets: '.animatedPath',
@@ -132,14 +136,53 @@ export function AnimatedSvgMask() {
             'M435,525c-19-305,210-485,470-455s280,105,455,95c210-24,465,125,365,375c-70,180-15,465-255,560c-195,65-385-27-595,75c-135,60-375,18-495-160C300,845,440,760,435,525Z',
         },
       ],
-      duration: 5000, // Increased the duration to make each morph last longer
+      duration: 4000, // Increased the duration to make each morph last longer
       loop: true,
       easing: 'easeInOutQuad',
       direction: 'alternate',
     });
   }, []);
 
-  const [scaleFactor, setScaleFactor] = useState(0.28);
+  useEffect(() => {
+    // Get video element
+    const videoElement = videoRef.current;
+    const blackOverlay = blackOverlayRef.current;
+
+    const switchAnim = gsap
+      .timeline()
+      .to(blackOverlay, {
+        curation: 0.5,
+        scaleY: 1,
+        transformOrigin: 'bottom',
+        ease: 'power2.in',
+      })
+      .add(() => {
+        // Switch video source
+        videoElement.src = `/projects/${project.media}`;
+        // Load the new Video
+        videoElement.load();
+      })
+      .to(blackOverlay, {
+        duratin: 0.5,
+        scaleY: 0,
+        transformOrigin: 'bottom',
+        ease: 'power2.out',
+      });
+
+    /*
+    const switchAnim = gsap
+      .timeline()
+      .to(videoElement, { opacity: 0, duration: 0.5 })
+      .to(videoElement, { scale: 0.75, duration: 0.5 }, '<')
+      .add(() => {
+        // Switch the video source
+        videoElement.src = `/projects/${project.media}`;
+        // Load the new video
+        videoElement.load();
+      })
+      .to(videoElement, { opacity: 1, duration: 0.5 })
+      .to(videoElement, { scale: 1, duration: 0.75, ease: 'back' }, '<'); */
+  }, [project]);
 
   const onMouseEnter = () => {
     setScaleFactor(0.75);
@@ -163,13 +206,18 @@ export function AnimatedSvgMask() {
         </clipPath>
       </svg>
       <video
-        className="absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
+        ref={videoRef}
+        className="project-video absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
         style={{ clipPath: 'url(#myClip)' }}
-        src="/projects/Marko Fast_90_Grad.mp4"
         autoPlay
         muted
         loop
       ></video>
+      <div
+        ref={blackOverlayRef}
+        className="absolute top-0 left-0 w-full h-full bg-black"
+        style={{ clipPath: 'url(#myClip)' }}
+      ></div>
     </div>
   );
 }
