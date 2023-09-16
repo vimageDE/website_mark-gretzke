@@ -108,8 +108,9 @@ export function VideoWithComplexClipPath() {
 
 export function AnimatedSvgMask({ project }) {
   const [scaleFactor, setScaleFactor] = useState(0.28);
-  const blackOverlayRef = useRef(null);
+  const [isReveal, setIsReveal] = useState(false);
   const videoRef = useRef(null);
+  const logoRef = useRef(null);
 
   useEffect(() => {
     anime({
@@ -146,42 +147,48 @@ export function AnimatedSvgMask({ project }) {
   useEffect(() => {
     // Get video element
     const videoElement = videoRef.current;
-    const blackOverlay = blackOverlayRef.current;
+    const logoElement = logoRef.current;
 
-    const switchAnim = gsap
-      .timeline()
-      .to(blackOverlay, {
-        curation: 0.5,
-        scaleY: 1,
-        transformOrigin: 'bottom',
-        ease: 'power2.in',
-      })
-      .add(() => {
-        // Switch video source
-        videoElement.src = `/projects/${project.media}`;
-        // Load the new Video
-        videoElement.load();
-      })
-      .to(blackOverlay, {
-        duratin: 0.5,
-        scaleY: 0,
-        transformOrigin: 'bottom',
-        ease: 'power2.out',
-      });
+    // const switchAnim = gsap
+    //   .timeline()
+    //   .add(() => {
+    //     setIsReveal(true);
+    //   })
+    //   .to(videoElement, { opacity: 0, duration: 0.5 })
+    //   .add(() => {
+    //     videoElement.src = `/projects/${project.media}`;
+    //     videoElement.load();
+    //     setIsReveal(false);
+    //   })
+    //   .to(videoElement, { opacity: 1, duratoin: 0.5 });
+    logoElement.style.transform = 'scale(0.5)';
 
-    /*
-    const switchAnim = gsap
-      .timeline()
-      .to(videoElement, { opacity: 0, duration: 0.5 })
-      .to(videoElement, { scale: 0.75, duration: 0.5 }, '<')
+    const switchAnim = gsap.timeline({
+      onComplete: () => {
+        logoElement.style.transform = '';
+      },
+    });
+
+    switchAnim
+      .add('start')
+      .to(videoElement, { opacity: 0, duration: 0.5 }, 'start')
+      .to(videoElement, { scale: 0.75, duration: 0.5 }, 'start')
+      .to(logoElement, { opacity: 0.75, duration: 0.5 }, 'start')
       .add(() => {
-        // Switch the video source
         videoElement.src = `/projects/${project.media}`;
-        // Load the new video
         videoElement.load();
       })
       .to(videoElement, { opacity: 1, duration: 0.5 })
-      .to(videoElement, { scale: 1, duration: 0.75, ease: 'back' }, '<'); */
+      .to(videoElement, { scale: 1, duration: 0.75, ease: 'back' }, '<')
+      .to(logoElement, { opacity: 0, duration: 0.5 }, '<')
+      .fromTo(logoElement, { scale: 0.5 }, { scale: 1, ease: 'none' }, 0);
+
+    // Update the duration of the logo scaling
+    switchAnim.getChildren().forEach((child) => {
+      if (child.vars.object === logoElement) {
+        child.vars.duration = switchAnim.totalDuration();
+      }
+    });
   }, [project]);
 
   const onMouseEnter = () => {
@@ -205,6 +212,11 @@ export function AnimatedSvgMask({ project }) {
           />
         </clipPath>
       </svg>
+      <div
+        ref={logoRef}
+        className="absolute w-64 h-64 bg-center bg-no-repeat m-auto left-0 right-0 top-0 bottom-0 opacity-0 scale-50"
+        style={{ backgroundImage: 'url(/Logo_Vimage.png)' }}
+      ></div>
       <video
         ref={videoRef}
         className="project-video absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
@@ -213,11 +225,12 @@ export function AnimatedSvgMask({ project }) {
         muted
         loop
       ></video>
-      <div
-        ref={blackOverlayRef}
-        className="absolute top-0 left-0 w-full h-full bg-black"
+
+      {/* <div
+        className={`absolute top-0 left-0 w-full h-full z-5 gradient-overlay ${isReveal ? 'reveal' : ''}`}
         style={{ clipPath: 'url(#myClip)' }}
-      ></div>
+      > 
+      </div>*/}
     </div>
   );
 }
