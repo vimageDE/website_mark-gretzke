@@ -34,7 +34,7 @@
     ],
     "Blockchain": [
         {
-          "title": "Project 1",
+          "title": "NFT Marketplace",
           "description": "Description for project 1",
           "media": "path_to_image_or_video"
         }
@@ -42,7 +42,7 @@
       ],
       "Webdev": [
         {
-          "title": "Project 1",
+          "title": "Snaipshot",
           "description": "Description for project 1",
           "media": "path_to_image_or_video"
         }

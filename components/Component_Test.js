@@ -107,7 +107,7 @@ export function VideoWithComplexClipPath() {
 }
 
 export function AnimatedSvgMask({ project }) {
-  const [scaleFactor, setScaleFactor] = useState(0.28);
+  const [scaleFactor, setScaleFactor] = useState(0.86);
   const [isReveal, setIsReveal] = useState(false);
   const videoRef = useRef(null);
   const logoRef = useRef(null);
@@ -118,26 +118,30 @@ export function AnimatedSvgMask({ project }) {
       d: [
         {
           value:
-            'M420,530c-20-310,220-500,490-460s300,110,480,90c210-22,480,120,370,390c-75,190-30,480-280,560c-200,70-400-30-610,80c-150,70-390,20-500-170C290,850,430,760,420,530Z',
+            'M 21.833 264.401 C 13.998 90.036 295.682 35.596 418.776 142.423 C 540.673 248.212 426.969 429.226 291.878 435.759 C 199.224 440.24 28.055 402.864 21.833 264.401 Z',
         },
         {
           value:
-            'M410,520c-15-310,205-480,470-450s290,100,460,90c190-25,450,110,370,370c-70,190-10,470-250,550c-185,65-380-20-590,60c-130,55-370,15-490-160C280,840,420,750,410,520Z',
+            'M 13.679 241.421 C 54.694 83.681 394.613 -5.722 478.081 134.268 C 547.345 250.435 353.579 423.296 218.488 429.829 C 125.834 434.31 -9.665 331.199 13.679 241.421 Z',
         },
         {
           value:
-            'M430,540c-18-290,200-490,475-460s295,120,475,100c205-19,460,130,360,385c-60,185-20,460-250,540c-180,63-375-28-585,70c-140,65-385,20-495-155C290,860,440,770,430,540Z',
+            'M 18.868 179.892 C 59.883 22.152 359.03 -37.598 442.498 102.392 C 511.762 218.559 307.618 404.763 172.527 411.296 C 79.873 415.777 -4.476 269.67 18.868 179.892 Z',
         },
         {
           value:
-            'M420,515c-17-315,215-495,480-460s285,110,465,95c200-23,470,115,360,385c-65,195-25,465-260,565c-190,70-390-25-595,80c-130,60-380,10-500-165C280,835,430,750,420,515Z',
+            'M 21.833 264.401 C 13.998 90.036 295.682 35.596 418.776 142.423 C 540.673 248.212 426.969 429.226 291.878 435.759 C 199.224 440.24 28.055 402.864 21.833 264.401 Z',
         },
         {
           value:
-            'M435,525c-19-305,210-485,470-455s280,105,455,95c210-24,465,125,365,375c-70,180-15,465-255,560c-195,65-385-27-595,75c-135,60-375,18-495-160C300,845,440,760,435,525Z',
+            'M 38.142 286.64 C 30.307 112.275 210.431 51.905 333.525 158.732 C 455.422 264.521 451.432 390.678 316.341 397.211 C 223.687 401.692 44.364 425.103 38.142 286.64 Z',
+        },
+        {
+          value:
+            'M 7.748 264.401 C -0.087 90.036 277.149 46.716 428.413 148.354 C 562.381 238.37 460.568 364.245 328.202 392.022 C 264.459 405.398 13.97 402.864 7.748 264.401 Z',
         },
       ],
-      duration: 4000, // Increased the duration to make each morph last longer
+      duration: 7000, // Increased the duration to make each morph last longer
       loop: true,
       easing: 'easeInOutQuad',
       direction: 'alternate',
@@ -171,17 +175,18 @@ export function AnimatedSvgMask({ project }) {
 
     switchAnim
       .add('start')
-      .to(videoElement, { opacity: 0, duration: 0.5 }, 'start')
-      .to(videoElement, { scale: 0.75, duration: 0.5 }, 'start')
+      .to(videoElement, { opacity: 0, duration: 0.5, filter: 'blur(25px)', ease: 'power1.out' }, 'start')
+      .to(videoElement, { scale: 0.75, duration: 0.5, ease: 'power1.out' }, 'start')
       .to(logoElement, { opacity: 0.75, duration: 0.5 }, 'start')
       .add(() => {
         videoElement.src = `/projects/${project.media}`;
         videoElement.load();
       })
-      .to(videoElement, { opacity: 1, duration: 0.5 })
+      .set(videoElement, { scale: 0.3 })
+      .to(videoElement, { opacity: 1, duration: 0.5, filter: 'blur(0px)', delay: 0.6 })
       .to(videoElement, { scale: 1, duration: 0.75, ease: 'back' }, '<')
       .to(logoElement, { opacity: 0, duration: 0.5 }, '<')
-      .fromTo(logoElement, { scale: 0.5 }, { scale: 1, ease: 'none' }, 0);
+      .fromTo(logoElement, { scale: 0.5 }, { scale: 1, ease: 'power1' }, 0);
 
     // Update the duration of the logo scaling
     switchAnim.getChildren().forEach((child) => {
@@ -192,23 +197,23 @@ export function AnimatedSvgMask({ project }) {
   }, [project]);
 
   const onMouseEnter = () => {
-    setScaleFactor(0.75);
+    setScaleFactor(2.45);
   };
 
   const onMouseLeave = () => {
-    setScaleFactor(0.28);
+    setScaleFactor(0.86);
   };
 
   return (
     <div className="relative w-[640px] h-[360px]" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-      <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 1642.86 874.06">
+      <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 500 500">
         <clipPath id="myClip">
           <path
             className="animatedPath"
-            d={`M422.5,520.5c-16-302,211-492,484-454s286,104,466,86c206.77-20.68,469,114,368,380
-            c-71.38,187.99-22,468-266,555c-191.66,68.34-386-25-598,75c-139.22,65.67-383.89,19.6-495-162
-            C288.5,848.5,434.96,755.61,422.5,520.5z`}
-            transform={`translate(300 250) scale(${scaleFactor}) translate(-1000 -900)`}
+            d={
+              'M 13.679 241.421 C 54.694 83.681 394.613 -5.722 478.081 134.268 C 547.345 250.435 353.579 423.296 218.488 429.829 C 125.834 434.31 -9.665 331.199 13.679 241.421 Z'
+            }
+            transform={`translate(300 250) scale(${scaleFactor}) translate(-200 -310)`}
           />
         </clipPath>
       </svg>

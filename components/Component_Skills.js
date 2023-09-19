@@ -22,7 +22,7 @@ export function Skill({ title, content }) {
               return prevValues;
             }
           });
-        }, 15);
+        }, 20);
       });
     } else {
       // Reset the values when not in view
@@ -67,8 +67,18 @@ export default function Skills() {
   return (
     <div className="bg-black h-screen w-full bg-opacity-80 text-white text-center flex justify-center">
       <div className="my-auto">
-        <h2 className="text-6xl pb-8 text-center">Skills</h2>
-        <div className="grid grid-cols-4 gap-32 items-start">
+        <motion.h2
+          className="text-6xl pb-8 text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1, transition: { duration: 0.75, delay: 0.15 } }}
+        >
+          Skills
+        </motion.h2>
+        <motion.div
+          className="grid grid-cols-4 gap-32 items-start"
+          initial={{ opacity: 0, filter: 'blur(10px)' }}
+          whileInView={{ opacity: 1, filter: 'blur(0px)', transition: { duration: 0.75, delay: 0.25 } }}
+        >
           <Skill
             title="Animation"
             content={{
@@ -101,7 +111,7 @@ export default function Skills() {
               'UX/UI': 85,
             }}
           />
-        </div>
+        </motion.div>
       </div>
     </div>
   );
