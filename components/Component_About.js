@@ -33,8 +33,11 @@ export default function About() {
   };
 
   return (
-    <div className="h-screen py-64 bg-opacity-95 bg-cover" style={{ backgroundImage: `url(${aboutImage1})` }}>
-      <div className="flex justify-center">
+    <div
+      className="h-screen py-64 bg-opacity-95 bg-cover relative overflow-hidden"
+      style={{ backgroundImage: `url(${aboutImage1})` }}
+    >
+      <div className="flex justify-center relative">
         <div className="w-2/5">
           {/* <div
             className="bg-contain bg-no-repeat h-96 w-96 ml-auto rounded-md"
@@ -99,6 +102,31 @@ export default function About() {
               </motion.div>
             </motion.div>
           </div>
+        </div>
+      </div>
+      <div>
+        <div className="absolute right-12 bottom-16 flex gap-10">
+          <motion.button
+            initial={{ x: 120, opacity: 0 }}
+            whileHover={{ scale: 1.25, transition: { duration: 0.15, ease: 'circOut' } }}
+            whileInView={{ x: 0, opacity: 1, transition: { delay: 1.2 } }}
+          >
+            <h2 className="text-2xl">Contact</h2>
+          </motion.button>
+          <motion.button
+            initial={{ x: 120, opacity: 0 }}
+            whileHover={{ scale: 1.25, transition: { duration: 0.15, ease: 'circOut' } }}
+            whileInView={{ x: 0, opacity: 1, transition: { delay: 1.0 } }}
+          >
+            <h2 className="text-2xl">Imprint</h2>
+          </motion.button>
+          <motion.button
+            initial={{ x: 120, opacity: 0 }}
+            whileHover={{ scale: 1.25, transition: { duration: 0.15, ease: 'circOut' } }}
+            whileInView={{ x: 0, opacity: 1, transition: { delay: 0.8 } }}
+          >
+            <h2 className="text-2xl">Privacy Policy</h2>
+          </motion.button>
         </div>
       </div>
     </div>

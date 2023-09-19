@@ -3,14 +3,27 @@ import { Software } from './Component_Software';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-const CustomLink = ({ title }) => {
+const scrollToPosition = (className) => {
+  const element = document.querySelector(`.${className}`);
+
+  if (element) {
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }
+};
+
+const CustomLink = ({ title, scroll }) => {
   return (
-    <h2 className="w-32 relative group text-center">
-      {title}
-      <span className="h-[2px] bg-white inline-block absolute left-[50%] bottom-0 w-[0%] group-hover:w-[50%] group-hover:left-[25%] transition-all ease duration-300">
-        &nbsp;
-      </span>
-    </h2>
+    <button onClick={() => scrollToPosition(scroll)}>
+      <h2 className="w-32 relative group text-center">
+        {title}
+        <span className="h-[2px] bg-white inline-block absolute left-[50%] bottom-0 w-[0%] group-hover:w-[50%] group-hover:left-[25%] transition-all ease duration-300">
+          &nbsp;
+        </span>
+      </h2>
+    </button>
   );
 };
 
@@ -30,11 +43,16 @@ export default function Header({ scrollPosition }) {
         scrolled ? 'bg-opacity-90' : 'bg-opacity-50'
       } flex justify-center text-center items-center transition-all duration-1000`}
     >
-      <CustomLink title={'Skills'} />
-      <motion.div className="flex justify-center" whileHover={{ scale: 1.1 }} transition={{ delay: 0, duration: 0.2 }}>
+      <CustomLink title={'Skills'} scroll={'skills-section'} />
+      <motion.button
+        onClick={() => scrollToPosition('hero-section')}
+        className="flex justify-center"
+        whileHover={{ scale: 1.1 }}
+        transition={{ delay: 0, duration: 0.2 }}
+      >
         <img src="/Logo_Vimage.png" className={`${scrolled ? 'h-12' : 'h-24'} transition-all duration-300`}></img>
-      </motion.div>
-      <CustomLink title={'Projects'} />
+      </motion.button>
+      <CustomLink title={'Projects'} scroll={'portfolio-section'} />
     </div>
   );
 }

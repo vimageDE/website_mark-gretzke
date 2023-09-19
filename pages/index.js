@@ -67,7 +67,7 @@ export default function Home() {
         </Head>
         <Header scrollPosition={scrollPosition} />
         <div className="scroll-section">
-          <div className="snap-start h-screen">
+          <div className="snap-start h-screen hero-section">
             <Hero />
             <Intro />
           </div>

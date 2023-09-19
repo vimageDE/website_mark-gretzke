@@ -197,7 +197,7 @@ export function AnimatedSvgMask({ project }) {
   }, [project]);
 
   const onMouseEnter = () => {
-    setScaleFactor(2.45);
+    setScaleFactor(3);
   };
 
   const onMouseLeave = () => {
