@@ -73,7 +73,7 @@ export default function Hero() {
       <div className="h-full relative flex flex-col items-center justify-center z-10">
         <div className="flex flex-col items-center justify-center mb-24" ref={ref}>
           <h2
-            className="text-9xl"
+            className="text-6xl md:text-9xl text-center"
             style={{
               transform: isInView ? 'none' : 'translateY(30px)',
               opacity: isInView ? 1 : 0,
@@ -131,7 +131,7 @@ export default function Hero() {
               <motion.div
                 key={index}
                 id={`client-${index}`}
-                className="bg-contain h-40 w-40 bg-no-repeat"
+                className="bg-contain h-12 md:h-24 lg:h-40 w-40 bg-no-repeat"
                 style={{ backgroundImage: `url(/clients/clients_${imageSrc}.png)` }}
                 transformTemplate={({ scale }) => `scale(${scale})`}
                 custom={mouseX}

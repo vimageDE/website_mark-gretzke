@@ -101,13 +101,13 @@ export default function PortfolioSection() {
   }, [activeTopic, activeProject]);
 
   return (
-    <div className="portfolio-container h-screen w-screen bg-black bg-opacity-80 text-white text-center py-16">
-      <div className="pt-12">
+    <div className="portfolio-container relative h-screen w-screen bg-black bg-opacity-80 text-white text-center py-16 overflow-hidden">
+      <div className="md:pt-12">
         <motion.h2
           initial={{ y: 35, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{}}
-          className="text-white text-6xl"
+          className="text-white hidden md:block text-6xl"
         >
           Projects
         </motion.h2>
@@ -115,14 +115,14 @@ export default function PortfolioSection() {
           initial={{ y: 35, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="mb-6"
+          className="mb-6 hidden md:block"
         >
           a small overview of the last 10 years
         </motion.div>
       </div>
 
       <motion.div
-        className="topics flex items-center justify-center"
+        className="topics flex items-center justify-center flex-wrap gap-2 mb-4"
         variants={containerVariants}
         initial="initial"
         whileInView="whileInView"
@@ -135,7 +135,9 @@ export default function PortfolioSection() {
               setActiveProject(0);
             }}
             variants={itemVariants}
-            className={`w-32 text-lg ${topic === activeTopic ? 'text-gold font-black' : 'text-white'}`}
+            className={`mx-2 md:mx-0 md:w-32 text-lg ${
+              topic === activeTopic ? 'text-gold md:font-black' : 'text-white'
+            }`}
             // whileHover={{ scale: 1.4 }}
             animate={{ scale: hoverScale[topic] }}
             onHoverStart={() => {
@@ -155,7 +157,7 @@ export default function PortfolioSection() {
         ))}
       </motion.div>
       <motion.div
-        className="mx-64 relative h-4/6 flex items-center"
+        className="md:mx-64 relative h-4/6 flex flex-col md:flex-row items-center"
         initial={{ opacity: 0, filter: 'blur(5px)', y: 15, scale: 0.75 }}
         whileInView={{
           opacity: 1,
@@ -166,24 +168,29 @@ export default function PortfolioSection() {
         }}
       >
         {/* Text */}
-        <div className="w-3/5 flex flex-col justify-center pl-16">
+        <div className="h-3/6 md:h-min md:w-3/5 flex flex-col justify-center md:pl-16">
           {/* Title */}
-          <h2 ref={projectTitle} className="text-6xl text-white">
+          <h2 ref={projectTitle} className="text-4xl md:text-6xl text-white">
             {activeTitle}
           </h2>
           {/* Description */}
-          <motion.p ref={projectDescr} className="px-16 text-left text-lg">
+          <motion.p
+            ref={projectDescr}
+            className="md:no-scrollbar px-8 md:px-16 text-center md:text-left text-sm md:text-lg overflow-y-auto fade-out-scroll"
+          >
             {activeDescr}
           </motion.p>
         </div>
         {/* Projects */}
-        <div className="">
-          <AnimatedSvgMask project={project} />
+        <div className="h-2/5 md:h-min -m-12 md:m-0">
+          <div className="scale-75 md:scale-100">
+            <AnimatedSvgMask project={project} />
+          </div>
         </div>
         {/* <PortfolioShowcase project={project} /> */}
       </motion.div>
       <motion.div
-        className="dots-container flex justify-center mb-4"
+        className="absolute bottom-20 md:bottom-28 right-0 left-0 dots-container flex justify-center mb-4"
         initial={{ opacity: 0, y: -0 }}
         whileInView={{ opacity: 1, y: 0, transition: { delay: 0.75, duration: 1 } }}
       >
@@ -204,11 +211,12 @@ export default function PortfolioSection() {
         ))}
       </motion.div>
       <motion.div
+        className="absolute bottom-8 md:bottom-12 right-0 left-0"
         initial={{ opacity: 0, y: -0 }}
         whileInView={{ y: 0, opacity: 1, transition: { delay: 1, duration: 1 } }}
       >
         <motion.button
-          className="mt-4 py-4 px-8 bg-white rounded-full m-8 text-black my-auto font-black uppercase"
+          className="mt-4 py-3 px-6 md:py-4 md:px-8 bg-white rounded-full m-8 text-black my-auto font-black uppercase"
           onClick={() => {
             setActiveProject((prev) => (prev + 1) % projects[activeTopic].length);
           }}

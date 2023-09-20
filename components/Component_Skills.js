@@ -40,7 +40,7 @@ export function Skill({ title, content }) {
       <div>
         {Object.keys(content).map((topic) => (
           <motion.div
-            className="py-1 text-xl cursor-pointer"
+            className="py-1 text-sm md:text-xl cursor-pointer"
             key={topic}
             animate={{ scale: hoverScale[topic] }}
             transition={{ ease: 'backOut', duration: 0.2 }}
@@ -75,7 +75,7 @@ export default function Skills() {
           Skills
         </motion.h2>
         <motion.div
-          className="grid grid-cols-4 gap-32 items-start"
+          className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-32 items-start"
           initial={{ opacity: 0, filter: 'blur(10px)' }}
           whileInView={{ opacity: 1, filter: 'blur(0px)', transition: { duration: 0.75, delay: 0.25 } }}
         >

@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { Globals } from './GlobalVariables';
 
 const containerVariants = {
   initial: {
@@ -29,9 +30,10 @@ const itemVariants = {
   },
 };
 
-const Software = ({ software, onSoftwareSelected, onBackClicked, isSelected, somethingSelected }) => {
+const Software = ({ software, onSoftwareSelected, onBackClicked, isSelected, somethingSelected, invert }) => {
   const symbol = '/Software_' + software.replace(' ', '-') + '_128.png';
   const [selectedScale, setSelectedScale] = useState(1.5);
+  const { mobile } = useContext(Globals);
 
   const softwareRef = useRef(null);
   const [x, setX] = useState(0);
@@ -81,7 +83,7 @@ const Software = ({ software, onSoftwareSelected, onBackClicked, isSelected, som
   };
 
   return (
-    <motion.div variants={itemVariants} className="cursor-pointer">
+    <motion.div variants={itemVariants} className={`cursor-pointer ${isSelected ? 'z-20' : 'z-10'} `}>
       <motion.div
         ref={softwareRef}
         animate={{ scale: selectedScale, x, y, opacity }}
@@ -94,15 +96,20 @@ const Software = ({ software, onSoftwareSelected, onBackClicked, isSelected, som
       >
         <div
           onClick={() => onSoftwareSelected(software)}
-          className={`w-16 h-16 bg-contain mx-auto mb-1`}
+          className={`w-16 h-16 bg-contain mx-auto mb-1 ${invert && mobile ? 'invert' : 'invert-0'} ${
+            somethingSelected ? 'pointer-events-none' : ''
+          }`}
           style={{ backgroundImage: `url(${symbol})` }}
         ></div>
-        <div onClick={() => onSoftwareSelected(software)} className="text-xs text-black ">
+        <div
+          onClick={() => onSoftwareSelected(software)}
+          className={`text-xs text-white md:text-black ${somethingSelected ? 'pointer-events-none' : ''}`}
+        >
           {software}
         </div>
         {isSelected ? (
           <motion.div className="absolute left-1/2 -translate-x-1/2" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <p className="w-[200px] text-black">This is a test for a text</p>
+            <p className="w-[200px] text-white md:text-black">This is a test for a text</p>
             <motion.div
               whileHover={{ scale: 1.1 }}
               className="bg-gold py-1 px-4 rounded cursor-pointer mt-8"
@@ -131,6 +138,9 @@ export default function SoftwareSection() {
   const bgImage = '/background-software1.png';
 
   const onSoftwareSelected = (software) => {
+    if (selectedSoftware !== null) {
+      return;
+    }
     setSelectedSoftware(software);
   };
   const onBackClicked = () => {
@@ -144,16 +154,16 @@ export default function SoftwareSection() {
       className="h-screen flex relative overflow-hidden bg-cover"
       style={{ backgroundImage: `url(${softwareImage1})` }}
     >
-      <div className="h-full w-full absolute bg-white bg-opacity-0 -z-20" />
+      <div className="h-full w-full absolute bg-gradient-to-t from-black/90 md:from-transparent to-black/20 bg-black bg-opacity-25 md:bg-opacity-0 md:-z-20" />
       {/* <div
         className="absolute bg-contain bg-no-repeat h-[125%] w-full -left-80 -bottom-32 -z-10"
         style={{ backgroundImage: `url(${bgImage})` }}
       ></div> */}
       <div className="flex w-full justify-center items-center">
-        <div className="w-2/5"></div>
-        <div className="w-3/5 px-8 flex flex-col justify-center items-center">
+        <div className="md:w-2/5"></div>
+        <div className="md:w-3/5 md:px-8 flex flex-col justify-center items-center">
           <motion.h2
-            className="text-6xl pb-8 text-black"
+            className="mt-8 md:mt-0 text-5xl pb-8 text-white md:text-black text-center z-0"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.15 }}
@@ -164,7 +174,7 @@ export default function SoftwareSection() {
             variants={containerVariants}
             initial="initial"
             whileInView="whileInView"
-            className="flex gap-16 w-[350px] flex-wrap justify-center text-center mt-8 relative parent-container"
+            className="flex gap-12 md:gap-16 w-[350px] flex-wrap justify-center text-center mt-8 relative parent-container"
           >
             <Software
               software={'C4D'}
@@ -172,6 +182,7 @@ export default function SoftwareSection() {
               onBackClicked={onBackClicked}
               isSelected={selectedSoftware === 'C4D'}
               somethingSelected={selectedSoftware !== null}
+              invert={false}
             />
             <Software
               software={'After Effects'}
@@ -179,6 +190,7 @@ export default function SoftwareSection() {
               onBackClicked={onBackClicked}
               isSelected={selectedSoftware === 'After Effects'}
               somethingSelected={selectedSoftware !== null}
+              invert={false}
             />
             <Software
               software={'Octane'}
@@ -186,6 +198,7 @@ export default function SoftwareSection() {
               onBackClicked={onBackClicked}
               isSelected={selectedSoftware === 'Octane'}
               somethingSelected={selectedSoftware !== null}
+              invert={true}
             />
             <Software
               software={'Unity'}
@@ -193,6 +206,7 @@ export default function SoftwareSection() {
               onBackClicked={onBackClicked}
               isSelected={selectedSoftware === 'Unity'}
               somethingSelected={selectedSoftware !== null}
+              invert={false}
             />
             <Software
               software={'Solidity'}
@@ -200,6 +214,7 @@ export default function SoftwareSection() {
               onBackClicked={onBackClicked}
               isSelected={selectedSoftware === 'Solidity'}
               somethingSelected={selectedSoftware !== null}
+              invert={true}
             />
             <Software
               software={'Webdev'}
@@ -207,6 +222,7 @@ export default function SoftwareSection() {
               onBackClicked={onBackClicked}
               isSelected={selectedSoftware === 'Webdev'}
               somethingSelected={selectedSoftware !== null}
+              invert={false}
             />
           </motion.div>
         </div>

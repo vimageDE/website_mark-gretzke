@@ -34,17 +34,18 @@ export default function About() {
 
   return (
     <div
-      className="h-screen py-64 bg-opacity-95 bg-cover relative overflow-hidden"
+      className="h-screen py-24 md:py-64 bg-opacity-95 bg-cover relative overflow-hidden"
       style={{ backgroundImage: `url(${aboutImage1})` }}
     >
+      <div className="absolute top-0 left-0 right-0 bottom-0 h-full w-full bg-black bg-opacity-50 md:bg-opacity-0"></div>
       <div className="flex justify-center relative">
-        <div className="w-2/5">
+        <div className="md:w-2/5">
           {/* <div
             className="bg-contain bg-no-repeat h-96 w-96 ml-auto rounded-md"
             style={{ backgroundImage: `url(${aboutImage})` }}
           ></div> */}
         </div>
-        <div className="w-3/5 pl-12 pr-32 text-white">
+        <div className="md:w-3/5 px-12 md:px-0 md:pl-12 md:pr-32 text-white ">
           <div className="h-full relative flex flex-col">
             <div className="flex flex-col">
               <motion.h2 initial={{ x: 75 }} whileInView={{ x: 0 }} className="text-3xl mb-4">
@@ -55,7 +56,7 @@ export default function About() {
               </motion.h2>
             </div>
             <motion.div
-              className="text-white mx-auto"
+              className="text-white mx-auto text-sm"
               initial={{ opacity: 0, filter: 'blur(10px)' }}
               whileInView={{ opacity: 1, filter: 'blur(0px)' }}
               transition={{ duration: 0.5, delay: 0.5 }}
@@ -88,24 +89,28 @@ export default function About() {
                 <div className="uppercase font-black">Experience:</div>
                 <div>Freelancer over 10 years</div>
               </motion.div>
-              <motion.div className="flex space-x-2" variants={itemVariants}>
+              <motion.div className="flex flex-col md:flex-row space-x-2" variants={itemVariants}>
                 <div className="uppercase font-black">Also known for:</div>
-                <a href="www.vimage.de">Vimage (Design)</a>
-                <div>•</div>
-                <a href="www.mayfly-games.com">Mayfly-Games (Gamedev)</a>
-                <div>•</div>
-                <a href="www.mark-gretzke.com">Mark-Gretzke (Coding)</a>
+                <div className="flex space-x-2 text-sm md:text-base text-center">
+                  <a href="www.vimage.de">Vimage (Design)</a>
+                  <div>•</div>
+                  <a href="www.mayfly-games.com">Mayfly-Games (Gamedev)</a>
+                  <div>•</div>
+                  <a href="www.mark-gretzke.com">Mark-Gretzke (Coding)</a>
+                </div>
               </motion.div>
               <motion.div className="flex space-x-2" variants={itemVariants}>
                 <div className="uppercase font-black">place of residence:</div>
-                <div>Germany - Ludwigshafen am Rhein</div>
+                <div className="flex space-x-2">
+                  <div>Germany - Ludwigshafen am Rhein</div>
+                </div>
               </motion.div>
             </motion.div>
           </div>
         </div>
       </div>
       <div>
-        <div className="absolute right-12 bottom-16 flex gap-10">
+        <div className="absolute left-0 md:left-auto right-0 md:right-12 bottom-16 flex justify-center gap-10">
           <motion.button
             initial={{ x: 120, opacity: 0 }}
             whileHover={{ scale: 1.25, transition: { duration: 0.15, ease: 'circOut' } }}

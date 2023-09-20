@@ -7,8 +7,13 @@ export const Globals = createContext();
 export const GlobalVariables = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingText, setIsLoadingText] = useState('');
+  const [mobile, setMobile] = useState('');
 
   const router = useRouter();
+
+  useEffect(() => {
+    setMobile(window.innerWidth <= 768);
+  }, []);
 
   const getAddressLink = (address, name) => {
     const link = (
@@ -48,6 +53,7 @@ export const GlobalVariables = ({ children }) => {
         getTimestampDate,
         openAddress,
         goHome,
+        mobile,
       }}
     >
       {children}

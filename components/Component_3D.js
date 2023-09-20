@@ -1,20 +1,22 @@
 import { Canvas, useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useContext } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useThree } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
 import * as THREE from 'three';
 import { Bloom, EffectComposer, Glitch, Pixelation, SMAA, SSAO } from '@react-three/postprocessing';
+import { Globals } from './GlobalVariables';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function Spaceship({ scrollContainerRef }) {
   const gltf = useLoader(GLTFLoader, '/3D/scene.glb');
   const mesh = useRef(null);
+  const { mobile } = useContext(Globals);
 
-  // This is where we'll adjust the material properties.
+  // This is where we adjust the material properties.
   useEffect(() => {
     gltf.scene.traverse((child) => {
       if (child.isMesh) {
@@ -45,7 +47,7 @@ function Spaceship({ scrollContainerRef }) {
       const masterTimeline = gsap
         .timeline()
         .addLabel('start', 0)
-        .to(mesh.current.position, { x: 2.5, y: -5, z: 0.4, duration: 0.2 })
+        .to(mesh.current.position, { x: mobile ? 1.5 : 2.5, y: mobile ? -4 : -5, z: 0.4, duration: 0.2 })
         .to(mesh.current.rotation, { x: 0, y: 0.2, z: 0, duration: 0.2 }, '<')
         .addLabel('skillsSectionEnd')
         .to(mesh.current.position, { x: 0, y: -10, z: 1, duration: 0.2 })
@@ -78,6 +80,7 @@ function Spaceship({ scrollContainerRef }) {
 function CameraSetup({ scrollPosition, scrollContainerRef, directionalLightRef }) {
   const { camera } = useThree();
   gsap.registerPlugin(ScrollTrigger);
+  const { mobile } = useContext(Globals);
 
   useEffect(() => {
     // console.log('ScrollPosition: ', scrollContainerRef.current.scrollTop);
@@ -85,7 +88,7 @@ function CameraSetup({ scrollPosition, scrollContainerRef, directionalLightRef }
 
   useEffect(() => {
     // Initial camera setup
-    camera.position.set(0.05, 0.7, 7);
+    camera.position.set(mobile ? 0 : 0.05, 0.7, 7);
     camera.rotation.set(0, 0, 0);
     camera.fov = 50;
     camera.updateProjectionMatrix();
@@ -93,13 +96,13 @@ function CameraSetup({ scrollPosition, scrollContainerRef, directionalLightRef }
     const masterTimeline = gsap
       .timeline()
       .addLabel('start', 0)
-      .to(camera.position, { x: 0.05, y: -6, z: 7, duration: 0.2 })
+      .to(camera.position, { x: mobile ? 0 : 0.05, y: -6, z: 7, duration: 0.2 })
       .addLabel('skillsSectionEnd')
-      .to(camera.position, { x: 0.05, y: -12, z: 7, duration: 0.2 })
+      .to(camera.position, { x: mobile ? 0 : 0.05, y: -12, z: 7, duration: 0.2 })
       .addLabel('softwareSectionEnd')
-      .to(camera.position, { x: 0.05, y: -18, z: 7, duration: 0.2 })
+      .to(camera.position, { x: mobile ? 0 : 0.05, y: -18, z: 7, duration: 0.2 })
       .addLabel('portfolioSectionEnd')
-      .to(camera.position, { x: 0.05, y: -24, z: 7, duration: 0.2 })
+      .to(camera.position, { x: mobile ? 0 : 0.05, y: -24, z: 7, duration: 0.2 })
       .addLabel('aboutSectionEnd');
 
     ScrollTrigger.create({
