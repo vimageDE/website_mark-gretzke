@@ -49,6 +49,9 @@
 
   .animatedPath {
     transition: transform 0.7s ease-in-out;
+    -moz-transition: transform 0.7s ease-in-out;  /* Firefox */
+    -webkit-transition: transform 0.7s ease-in-out;  /* Safari and Chrome */
+  
   }
 
   .mask {

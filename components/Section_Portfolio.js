@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import {
   AnimatedSvgMask,
   ImageWithMask,
+  TestClip,
   VideoWithClipPath,
   VideoWithComplexClipPath,
   VideoWithCustomClipPath,
@@ -20,8 +21,7 @@ export default function PortfolioSection() {
   const [activeTitle, setActiveTitle] = useState('');
   const [activeDescr, setActiveDescr] = useState('');
   const [animActive, setAnimActive] = useState(false);
-  const [videoWidth, setVideoWidth] = useState(null);
-  const [videoHeight, setVideoHeight] = useState(null);
+
   const [hoverScale, setHoverScale] = useState({});
   const projectTitle = useRef(null);
   const projectDescr = useRef(null);
@@ -52,11 +52,6 @@ export default function PortfolioSection() {
         // repeat: Infinity,
       },
     },
-  };
-
-  const handleMetadataLoaded = (event) => {
-    setVideoWidth(event.target.videoWidth);
-    setVideoHeight(event.target.videoHeight);
   };
 
   const project = projects[activeTopic][activeProject];
@@ -157,7 +152,7 @@ export default function PortfolioSection() {
         ))}
       </motion.div>
       <motion.div
-        className="md:mx-64 relative h-4/6 flex flex-col md:flex-row items-center"
+        className="w-full h-5/6 md:h-[60%] flex flex-col md:flex-row justify-center items-center mt-12"
         initial={{ opacity: 0, filter: 'blur(5px)', y: 15, scale: 0.75 }}
         whileInView={{
           opacity: 1,
@@ -168,7 +163,7 @@ export default function PortfolioSection() {
         }}
       >
         {/* Text */}
-        <div className="h-3/6 md:h-min md:w-3/5 flex flex-col justify-center md:pl-16">
+        <div className="md:w-1/2 md:ml-[5%] xl:ml-[15%]">
           {/* Title */}
           <h2 ref={projectTitle} className="text-4xl md:text-6xl text-white">
             {activeTitle}
@@ -176,19 +171,20 @@ export default function PortfolioSection() {
           {/* Description */}
           <motion.p
             ref={projectDescr}
-            className="md:no-scrollbar px-8 md:px-16 text-center md:text-left text-sm md:text-lg overflow-y-auto fade-out-scroll"
+            className="md:no-scrollbar px-14 md:px-16 text-center md:text-left text-sm md:text-lg overflow-y-auto fade-out-scroll"
           >
             {activeDescr}
           </motion.p>
         </div>
         {/* Projects */}
-        <div className="h-2/5 md:h-min -m-12 md:m-0">
-          <div className="scale-75 md:scale-100">
-            <AnimatedSvgMask project={project} />
+        <div className="md:w-1/2 md:mr-[2%] xl:mr-[10%]">
+          <div className="w-full h-full scale-75 md:scale-100 ">
+            <TestClip project={project} />
           </div>
         </div>
         {/* <PortfolioShowcase project={project} /> */}
       </motion.div>
+
       <motion.div
         className="absolute bottom-20 md:bottom-28 right-0 left-0 dots-container flex justify-center mb-4"
         initial={{ opacity: 0, y: -0 }}
@@ -210,6 +206,7 @@ export default function PortfolioSection() {
           ></motion.span>
         ))}
       </motion.div>
+
       <motion.div
         className="absolute bottom-8 md:bottom-12 right-0 left-0"
         initial={{ opacity: 0, y: -0 }}

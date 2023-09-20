@@ -107,10 +107,55 @@ export function VideoWithComplexClipPath() {
 }
 
 export function AnimatedSvgMask({ project }) {
-  const [scaleFactor, setScaleFactor] = useState(0.86);
+  const [scaleFactor, setScaleFactor] = useState(1);
   const [isReveal, setIsReveal] = useState(false);
   const videoRef = useRef(null);
   const logoRef = useRef(null);
+  const [videoWidth, setVideoWidth] = useState(null);
+  const [videoHeight, setVideoHeight] = useState(null);
+
+  const [translate, setTranslate] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    if (videoRef.current) {
+      const videoElement = videoRef.current;
+
+      function handleResize() {
+        const { width, height } = videoElement.getBoundingClientRect();
+        const scale = videoRef.current.clientWidth / 750;
+
+        setVideoWidth(width);
+        setVideoHeight(height);
+
+        setScaleFactor(0.5);
+
+        // Adjust for scaleFactor if needed
+        const translateX = 0.78 * width - 450;
+
+        const adjustedWidth = 330; // 135 bei 750 / -35 bei 220;
+        const adjustedHeight = 0;
+        setTranslate({ x: translateX, y: adjustedHeight / 2 });
+
+        if (videoRef != null) {
+          console.log('Video Width: ', videoRef.current.clientWidth);
+          console.log('Video Height: ', videoRef.current.clientHeight);
+        }
+      }
+
+      handleResize();
+
+      // Attach event listener for resize events
+      window.addEventListener('resize', handleResize);
+
+      // Clean up event listener
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
+
+  const handleMetadataLoaded = (event) => {
+    // setVideoWidth(event.target.videoWidth);
+    // setVideoHeight(event.target.videoHeight);
+  };
 
   useEffect(() => {
     anime({
@@ -173,6 +218,8 @@ export function AnimatedSvgMask({ project }) {
       },
     });
 
+    return;
+
     switchAnim
       .add('start')
       .to(videoElement, { opacity: 0, duration: 0.5, filter: 'blur(25px)', ease: 'power1.out' }, 'start')
@@ -201,22 +248,27 @@ export function AnimatedSvgMask({ project }) {
   };
 
   const onMouseLeave = () => {
-    setScaleFactor(0.86);
+    setScaleFactor(1);
   };
 
   return (
-    <div className="relative w-[640px] h-[360px]" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-      <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 500 500">
-        <clipPath id="myClip">
-          <path
-            className="animatedPath"
-            d={
-              'M 13.679 241.421 C 54.694 83.681 394.613 -5.722 478.081 134.268 C 547.345 250.435 353.579 423.296 218.488 429.829 C 125.834 434.31 -9.665 331.199 13.679 241.421 Z'
-            }
-            transform={`translate(300 250) scale(${scaleFactor}) translate(-200 -310)`}
-          />
-        </clipPath>
-      </svg>
+    <div className="relative bg-white h-full w-full" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      <div className="">
+        <svg width={'500'} height={'0'}>
+          <defs>
+            <clipPath id="myClip">
+              <path
+                className="animatedPath origin-center"
+                d={
+                  'M 13.679 241.421 C 54.694 83.681 394.613 -5.722 478.081 134.268 C 547.345 250.435 353.579 423.296 218.488 429.829 C 125.834 434.31 -9.665 331.199 13.679 241.421 Z'
+                }
+                transform={`translate(${translate.x}, ${translate.y}) scale(${scaleFactor})`}
+              />
+            </clipPath>
+          </defs>
+        </svg>
+      </div>
+
       <div
         ref={logoRef}
         className="absolute w-64 h-64 bg-center bg-no-repeat m-auto left-0 right-0 top-0 bottom-0 opacity-0 scale-50"
@@ -224,7 +276,7 @@ export function AnimatedSvgMask({ project }) {
       ></div>
       <video
         ref={videoRef}
-        className="project-video absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
+        className="project-video origin-center w-fit right-0 object-cover pointer-events-none"
         style={{ clipPath: 'url(#myClip)' }}
         autoPlay
         muted
@@ -242,12 +294,10 @@ export function AnimatedSvgMask({ project }) {
 
 export function TestClip({ project }) {
   const videoRef = useRef(null);
-  const logoRef = useRef(null);
-
   const [videoWidth, setVideoWidth] = useState(null);
   const [videoHeight, setVideoHeight] = useState(null);
   const [scale, setScale] = useState({ x: 1, y: 1 });
-  const [scaleFactor, setScaleFactor] = useState(1.1);
+  const [scaleFactor, setScaleFactor] = useState(1);
 
   const handleMetadataLoaded = (event) => {
     setVideoWidth(event.target.videoWidth);
@@ -263,45 +313,15 @@ export function TestClip({ project }) {
   useEffect(() => {
     // Get video element
     const videoElement = videoRef.current;
-    const logoElement = logoRef.current;
-
-    logoElement.style.transform = 'scale(0.5)';
-
-    const switchAnim = gsap.timeline({
-      onComplete: () => {
-        logoElement.style.transform = '';
-      },
-    });
-
-    switchAnim
-      .add('start')
-      .to(videoElement, { opacity: 0, duration: 0.5, filter: 'blur(25px)', ease: 'power1.out' }, 'start')
-      .to(videoElement, { scale: 0.75, duration: 0.5, ease: 'power1.out' }, 'start')
-      .to(logoElement, { opacity: 0.75, duration: 0.5 }, 'start')
-      .add(() => {
-        videoElement.src = `/projects/${project.media}`;
-        videoElement.load();
-      })
-      .set(videoElement, { scale: 0.3 })
-      .to(videoElement, { opacity: 1, duration: 0.5, filter: 'blur(0px)', delay: 0.6 })
-      .to(videoElement, { scale: 1, duration: 0.75, ease: 'back' }, '<')
-      .to(logoElement, { opacity: 0, duration: 0.5 }, '<')
-      .fromTo(logoElement, { scale: 0.5 }, { scale: 1, ease: 'power1' }, 0);
-
-    // Update the duration of the logo scaling
-    switchAnim.getChildren().forEach((child) => {
-      if (child.vars.object === logoElement) {
-        child.vars.duration = switchAnim.totalDuration();
-      }
-    });
+    videoElement.src = `/projects/${project.media}`;
   }, [project]);
 
   const onMouseEnter = () => {
-    setScaleFactor(4);
+    setScaleFactor(3);
   };
 
   const onMouseLeave = () => {
-    setScaleFactor(1.1);
+    setScaleFactor(1);
   };
 
   useEffect(() => {
@@ -341,7 +361,7 @@ export function TestClip({ project }) {
   }, []);
 
   return (
-    <div className="relative" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+    <div className="" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <svg width={'0'} height={'0'}>
         <defs>
           {/* Note the clipPathUnits attribute */}
@@ -359,14 +379,9 @@ export function TestClip({ project }) {
           </clipPath>
         </defs>
       </svg>
-      <div
-        ref={logoRef}
-        className="absolute w-64 h-64 bg-center bg-no-repeat m-auto left-0 right-0 top-0 bottom-0 opacity-0 scale-50"
-        style={{ backgroundImage: 'url(/Logo_Vimage.png)' }}
-      ></div>
       <video
         ref={videoRef}
-        className="project-video m-auto left-0 right-0 top-0 bottom-0 object-cover pointer-events-none"
+        className="object-cover pointer-events-none"
         style={{ clipPath: 'url(#myClip)' }}
         autoPlay
         muted
