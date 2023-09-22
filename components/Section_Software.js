@@ -33,7 +33,7 @@ const itemVariants = {
 const Software = ({ software, onSoftwareSelected, onBackClicked, isSelected, somethingSelected, invert }) => {
   const symbol = '/Software_' + software.replace(' ', '-') + '_128.png';
   const [selectedScale, setSelectedScale] = useState(1.5);
-  const { mobile } = useContext(Globals);
+  const { mobile, computer } = useContext(Globals);
 
   const softwareRef = useRef(null);
   const [x, setX] = useState(0);
@@ -42,8 +42,6 @@ const Software = ({ software, onSoftwareSelected, onBackClicked, isSelected, som
 
   // This effect runs when isSelected changes
   useEffect(() => {
-    console.log('Test Use Effect');
-
     if (isSelected && softwareRef.current) {
       const parent = softwareRef.current.closest('.parent-container');
       if (parent) {
@@ -96,20 +94,20 @@ const Software = ({ software, onSoftwareSelected, onBackClicked, isSelected, som
       >
         <div
           onClick={() => onSoftwareSelected(software)}
-          className={`w-16 h-16 bg-contain mx-auto mb-1 ${invert && mobile ? 'invert' : 'invert-0'} ${
+          className={`w-16 h-16 bg-contain mx-auto mb-1 ${invert && !computer ? 'invert' : 'invert-0'} ${
             somethingSelected ? 'pointer-events-none' : ''
           }`}
           style={{ backgroundImage: `url(${symbol})` }}
         ></div>
         <div
           onClick={() => onSoftwareSelected(software)}
-          className={`text-xs text-white md:text-black ${somethingSelected ? 'pointer-events-none' : ''}`}
+          className={`text-xs text-white xl:text-black ${somethingSelected ? 'pointer-events-none' : ''}`}
         >
           {software}
         </div>
         {isSelected ? (
           <motion.div className="absolute left-1/2 -translate-x-1/2" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <p className="w-[200px] text-white md:text-black">This is a test for a text</p>
+            <p className="w-[200px] text-white xl:text-black">This is a test for a text</p>
             <motion.div
               whileHover={{ scale: 1.1 }}
               className="bg-gold py-1 px-4 rounded cursor-pointer mt-8"
@@ -154,7 +152,7 @@ export default function SoftwareSection() {
       className="h-screen flex relative overflow-hidden bg-cover"
       style={{ backgroundImage: `url(${softwareImage1})` }}
     >
-      <div className="h-full w-full absolute bg-gradient-to-t from-black/90 md:from-transparent to-black/20 bg-black bg-opacity-25 md:bg-opacity-0 md:-z-20" />
+      <div className="h-full w-full absolute bg-gradient-to-t md:bg-gradient-to-l from-black/90 xl:from-transparent to-black/20 bg-black bg-opacity-25 xl:bg-opacity-0 xl:-z-20" />
       {/* <div
         className="absolute bg-contain bg-no-repeat h-[125%] w-full -left-80 -bottom-32 -z-10"
         style={{ backgroundImage: `url(${bgImage})` }}
@@ -163,7 +161,7 @@ export default function SoftwareSection() {
         <div className="md:w-2/5"></div>
         <div className="md:w-3/5 md:px-8 flex flex-col justify-center items-center">
           <motion.h2
-            className="mt-8 md:mt-0 text-5xl pb-8 text-white md:text-black text-center z-0"
+            className="mt-8 md:mt-0 text-5xl pb-8 text-white xl:text-black text-center z-0"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.15 }}

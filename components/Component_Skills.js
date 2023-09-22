@@ -75,7 +75,7 @@ export default function Skills() {
           Skills
         </motion.h2>
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-32 items-start"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-24 xl:gap-32 items-start"
           initial={{ opacity: 0, filter: 'blur(10px)' }}
           whileInView={{ opacity: 1, filter: 'blur(0px)', transition: { duration: 0.75, delay: 0.25 } }}
         >

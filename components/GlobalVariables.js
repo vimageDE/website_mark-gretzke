@@ -8,11 +8,13 @@ export const GlobalVariables = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingText, setIsLoadingText] = useState('');
   const [mobile, setMobile] = useState('');
+  const [computer, setComputer] = useState('');
 
   const router = useRouter();
 
   useEffect(() => {
     setMobile(window.innerWidth <= 768);
+    setComputer(window.innerWidth >= 1280);
   }, []);
 
   const getAddressLink = (address, name) => {

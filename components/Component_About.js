@@ -37,7 +37,7 @@ export default function About() {
       className="h-screen py-24 md:py-64 bg-opacity-95 bg-cover relative overflow-hidden"
       style={{ backgroundImage: `url(${aboutImage1})` }}
     >
-      <div className="absolute top-0 left-0 right-0 bottom-0 h-full w-full bg-black bg-opacity-50 md:bg-opacity-0"></div>
+      <div className="absolute top-0 left-0 right-0 bottom-0 h-full w-full bg-black bg-opacity-50 xl:bg-opacity-0"></div>
       <div className="flex justify-center relative">
         <div className="md:w-2/5">
           {/* <div

@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import anime from 'animejs';
+import { Globals } from './GlobalVariables';
 
 function ScrollSnapExample() {
   return (
@@ -243,6 +244,7 @@ export function AnimatedSvgMask({ project }) {
 export function TestClip({ project }) {
   const videoRef = useRef(null);
   const logoRef = useRef(null);
+  const { mobile } = useContext(Globals);
 
   const [videoWidth, setVideoWidth] = useState(null);
   const [videoHeight, setVideoHeight] = useState(null);
@@ -257,7 +259,7 @@ export function TestClip({ project }) {
   useEffect(() => {
     const scaleX = videoWidth > videoHeight ? videoHeight / videoWidth : 1;
     const scaleY = videoHeight > videoWidth ? videoWidth / videoHeight : 1;
-    setScale({ x: scaleX, y: scaleY });
+    setScale({ x: mobile ? 0.532 : scaleX, y: mobile ? 1 : scaleY });
   }, [videoWidth, videoHeight]);
 
   useEffect(() => {
@@ -366,7 +368,7 @@ export function TestClip({ project }) {
       ></div>
       <video
         ref={videoRef}
-        className="project-video m-auto left-0 right-0 top-0 bottom-0 object-cover pointer-events-none"
+        className="h-[250px] md:h-auto w-[450px] md:w-auto object-cover pointer-events-none "
         style={{ clipPath: 'url(#myClip)' }}
         autoPlay
         muted

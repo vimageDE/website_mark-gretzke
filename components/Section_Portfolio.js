@@ -152,7 +152,7 @@ export default function PortfolioSection() {
         ))}
       </motion.div>
       <motion.div
-        className="w-full h-5/6 md:h-[60%] flex flex-col md:flex-row justify-center items-center mt-12"
+        className="w-full h-5/6 md:h-[60%] flex flex-col md:flex-row justify-center items-center md:mt-12"
         initial={{ opacity: 0, filter: 'blur(5px)', y: 15, scale: 0.75 }}
         whileInView={{
           opacity: 1,
@@ -166,7 +166,7 @@ export default function PortfolioSection() {
         <div className="md:w-1/2 md:ml-[5%] xl:ml-[15%]">
           {/* Title */}
           <h2 ref={projectTitle} className="text-4xl md:text-6xl text-white">
-            {activeTitle}
+            Test
           </h2>
           {/* Description */}
           <motion.p
@@ -215,7 +215,11 @@ export default function PortfolioSection() {
         <motion.button
           className="mt-4 py-3 px-6 md:py-4 md:px-8 bg-white rounded-full m-8 text-black my-auto font-black uppercase"
           onClick={() => {
-            setActiveProject((prev) => (prev + 1) % projects[activeTopic].length);
+            console.log('Testing!');
+            setInterval(() => {
+              setActiveProject((prev) => (prev + 1) % projects[activeTopic].length);
+            }, 2500);
+            // setActiveProject((prev) => (prev + 1) % projects[activeTopic].length);
           }}
           whileHover={{ scale: 1.25 }}
           transition={{ ease: 'backOut', duration: 0.2 }}
