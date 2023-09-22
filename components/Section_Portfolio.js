@@ -215,11 +215,7 @@ export default function PortfolioSection() {
         <motion.button
           className="mt-4 py-3 px-6 md:py-4 md:px-8 bg-white rounded-full m-8 text-black my-auto font-black uppercase"
           onClick={() => {
-            console.log('Testing!');
-            setInterval(() => {
-              setActiveProject((prev) => (prev + 1) % projects[activeTopic].length);
-            }, 2500);
-            // setActiveProject((prev) => (prev + 1) % projects[activeTopic].length);
+            setActiveProject((prev) => (prev + 1) % projects[activeTopic].length);
           }}
           whileHover={{ scale: 1.25 }}
           transition={{ ease: 'backOut', duration: 0.2 }}
