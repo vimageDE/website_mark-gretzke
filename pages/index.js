@@ -11,17 +11,44 @@ import PortfolioSection from '../components/Section_Portfolio';
 import SoftwareSection from '../components/Section_Software';
 import ScrollSnapExample from '../components/Component_Test';
 import WebgiViewer from '../components/Component_3D';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Canvas, useLoader, useFrame } from '@react-three/fiber';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { OrbitControls, Stage } from '@react-three/drei';
 import BubbleComponent from '../components/Component_Bubbles';
+import { Globals } from '../components/GlobalVariables';
 
 const bgImage = '/background-image1.jpg';
 
 export default function Home() {
   const scrollContainerRef = useRef(null);
+  const { mobile } = useContext(Globals);
   const [scrollPosition, setScrollPosition] = useState(0);
+
+  // Add this useEffect to set the CSS variable on mount
+  useEffect(() => {
+    // Function to update the --viewport-height variable
+    const setViewportHeight = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--viewport-height', `${vh}px`);
+      console.log('Height: ', vh);
+
+      window.removeEventListener('resize', setViewportHeight);
+    };
+
+    // Set the initial value
+    setViewportHeight();
+
+    // Update the value whenever the window is resized
+    window.addEventListener('resize', setViewportHeight);
+
+    // Cleanup: remove the event listener when the component is unmounted
+    return () => {
+      if (window && typeof window.removeEventListener === 'function') {
+        window.removeEventListener('resize', setViewportHeight);
+      }
+    };
+  }, [mobile]); // Empty dependency array means this useEffect runs once when the component mounts
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,7 +69,7 @@ export default function Home() {
   }, [scrollPosition, scrollContainerRef]);
 
   return (
-    <div>
+    <div className="">
       <div className="absolute w-full h-screen overflow-y-hidden overflow-x-hidden" style={{ pointerEvents: 'none' }}>
         <WebgiViewer
           className={'h-screen w-full overflow-y-hidden overflow-x-hidden'}
