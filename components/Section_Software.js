@@ -81,15 +81,15 @@ const Software = ({ software, onSoftwareSelected, onBackClicked, isSelected, som
   };
 
   return (
-    <motion.div variants={itemVariants} className={`cursor-pointer ${isSelected ? 'z-20' : 'z-10'} `}>
+    <motion.div variants={itemVariants} className={`noClick cursor-pointer ${isSelected ? 'z-20' : 'z-10'} `}>
       <motion.div
         ref={softwareRef}
         animate={{ scale: selectedScale, x, y, opacity }}
         onHoverStart={() => {
-          if (!somethingSelected) setSelectedScale(1.5);
+          if (!mobile && !somethingSelected) setSelectedScale(1.5);
         }}
         onHoverEnd={() => {
-          if (!somethingSelected) setSelectedScale(1);
+          if (!mobile && !somethingSelected) setSelectedScale(1);
         }}
       >
         <div

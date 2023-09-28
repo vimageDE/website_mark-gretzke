@@ -166,7 +166,7 @@ export default function PortfolioSection() {
         <div className="md:w-1/2 md:ml-[5%] xl:ml-[15%]">
           {/* Title */}
           <h2 ref={projectTitle} className="text-4xl md:text-6xl text-white">
-            Test
+            {activeTitle}
           </h2>
           {/* Description */}
           <motion.p

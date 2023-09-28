@@ -373,6 +373,7 @@ export function TestClip({ project }) {
         autoPlay
         muted
         loop
+        preload="none"
         onLoadedMetadata={handleMetadataLoaded}
       ></video>
     </div>

@@ -24,6 +24,51 @@ export default function Home() {
   const scrollContainerRef = useRef(null);
   const { mobile } = useContext(Globals);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [scrollActive, setScrollActive] = useState(false);
+  const [screenHeight, setScreenHeight] = useState(0);
+
+  // Custom mobile scroll logic
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+
+    const scale = 1;
+    const minMovement = 50;
+    let scrollStartPos = 0;
+    let startY = 0;
+    let currentScrollTop = 0;
+    let deltaY = 0;
+
+    const handleTouchStart = (e) => {
+      deltaY = 0;
+      startY = e.touches[0].clientY; // Record the position where the touch started
+      scrollStartPos = container.scrollTop;
+      currentScrollTop = container.scrollTop;
+      setScrollActive(true);
+    };
+
+    const handleTouchMove = (e) => {
+      e.preventDefault();
+      deltaY = (startY - e.touches[0].clientY) * scale; // scale is the scaling factor
+      // container.scrollTop = currentScrollTop + deltaY;
+    };
+
+    const handleTouchEnd = () => {
+      if (deltaY > minMovement) container.scrollTop = scrollStartPos + screenHeight;
+      else if (deltaY < minMovement * -1) container.scrollTop = scrollStartPos - screenHeight;
+      // const targetScrollTop = currentScrollTop + deltaY; // However you determine where to scroll to.
+    };
+
+    container.addEventListener('touchstart', handleTouchStart, { passive: false });
+    container.addEventListener('touchmove', handleTouchMove, { passive: false });
+    container.addEventListener('touchend', handleTouchEnd, { passive: true }); // passive true since we are not preventing default
+
+    return () => {
+      // Cleanup listeners when the component is unmounted
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+      container.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [scrollContainerRef, screenHeight]);
 
   // Add this useEffect to set the CSS variable on mount
   useEffect(() => {
@@ -31,7 +76,8 @@ export default function Home() {
     const setViewportHeight = () => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--viewport-height', `${vh}px`);
-      console.log('Height: ', vh);
+      const screenHeight = window.outerHeight;
+      setScreenHeight(screenHeight);
 
       window.removeEventListener('resize', setViewportHeight);
     };
@@ -79,7 +125,7 @@ export default function Home() {
       </div>
       <BubbleComponent />
       <div
-        className="h-screen overflow-x-hidden overflow-y-scroll snap-y scroll-smooth snap-mandatory"
+        className={`h-screen overflow-x-hidden overflow-y-scroll scroll-smooth snap-y snap-mandatory`}
         ref={scrollContainerRef}
       >
         <div
