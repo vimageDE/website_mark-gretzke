@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 export default function About() {
   const aboutImage = '/about_Mark.jpg';
-  const aboutImage1 = '/aboutImage1.png';
+  const aboutImage1 = '/aboutImage1.webp';
 
   const containerVariants = {
     initial: {

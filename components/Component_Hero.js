@@ -2,7 +2,6 @@ import { motion, useMotionValue, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 
 export default function Hero() {
-  const clientsImage = '/Clients_all.png';
   const allClients = [
     'Apache207',
     'Constantinfilm',
@@ -62,7 +61,7 @@ export default function Hero() {
     <div className="relative h-[84%] bg-black bg-opacity-10 flex flex-col">
       {/* Background Video */}
       <video autoPlay muted loop playsInline className="fixed top-0 left-0 w-full h-full object-cover -z-40 blur-md">
-        <source src="/bg-videos/underwater37712.mp4" type="video/mp4" />
+        <source src="/bg-videos/underwater37712_2.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 

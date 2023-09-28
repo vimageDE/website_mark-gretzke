@@ -18,7 +18,7 @@ import { OrbitControls, Stage } from '@react-three/drei';
 import BubbleComponent from '../components/Component_Bubbles';
 import { Globals } from '../components/GlobalVariables';
 
-const bgImage = '/background-image1.jpg';
+const bgImage = '/bg-videos/background-image.webp';
 
 export default function Home() {
   const scrollContainerRef = useRef(null);

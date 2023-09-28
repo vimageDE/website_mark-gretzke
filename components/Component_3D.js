@@ -1,5 +1,6 @@
-import { Canvas, useLoader } from '@react-three/fiber';
+import { Canvas, useLoader, extend } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { useRef, useEffect, useContext } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
@@ -10,9 +11,18 @@ import { Bloom, EffectComposer, Glitch, Pixelation, SMAA, SSAO } from '@react-th
 import { Globals } from './GlobalVariables';
 
 gsap.registerPlugin(ScrollTrigger);
+extend({ GLTFLoader });
 
 function Spaceship({ scrollContainerRef }) {
-  const gltf = useLoader(GLTFLoader, '/3D/scene.glb');
+  // Setup DRACOLoader
+  const dracoLoader = new DRACOLoader();
+  dracoLoader.setDecoderPath('/3D/draco_decoder/');
+
+  // Setup GLTFLoader and set DRACOLoader instance
+  const gltfLoader = new GLTFLoader();
+  gltfLoader.setDRACOLoader(dracoLoader);
+
+  const gltf = useLoader(GLTFLoader, '/3D/scene_small.glb', (loader) => loader.setDRACOLoader(dracoLoader));
   const mesh = useRef(null);
   const { mobile } = useContext(Globals);
 

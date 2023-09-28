@@ -128,7 +128,7 @@ const Software = ({ software, onSoftwareSelected, onBackClicked, isSelected, som
 
 export default function SoftwareSection() {
   const [selectedSoftware, setSelectedSoftware] = useState(null);
-  const softwareImage1 = '/softwareImage5.png';
+  const softwareImage1 = '/softwareImage5.webp';
 
   const isinView = useInView({
     margin: '0px -500px -50px 0px',
