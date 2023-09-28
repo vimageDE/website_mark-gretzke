@@ -134,9 +134,9 @@ export default function Home() {
         ></div>
 
         <Head>
-          <title>Example project</title>
-          <meta name="description" content="template by Mark Wierzimok" />
-          <link rel="icon" href="/favicon.ico" />
+          <title>Mark Gretzke</title>
+          <meta name="description" content="portfolio of Mark Gretzke" />
+          <link rel="icon" href="/Logo_Vimage.png" />
         </Head>
         <Header scrollPosition={scrollPosition} />
         <div className="scroll-section">
