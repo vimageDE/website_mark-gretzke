@@ -15,6 +15,7 @@ export default function Hero() {
     'ZDF',
   ];
   const ref = useRef(null);
+  const [contactHover, setContactHover] = useState(false);
   const isInView = useInView(ref, { once: false, margin: '500px 0px 0px 0px' });
 
   const mouseX = useMotionValue(null);
@@ -102,19 +103,27 @@ export default function Hero() {
               }`,
             }}
           >
-            <motion.div className="mt-6 " whileHover={{ scale: 1.4 }}>
-              <motion.button
-                className="px-8 py-2 rounded-md"
-                initial={{ backgroundColor: '#FFFFFF' }}
-                animate={{ backgroundColor: ['#FFFFFF', '#e9c169', '#FFFFFF'] }}
-                transition={{
-                  duration: 2.5, // Time in seconds for one cycle of the keyframes
-                  ease: 'easeInOut', // Easing function
-                  repeat: Infinity, // Loop the animation indefinitely
-                }}
+            <motion.div className="mt-6 " whileHover={{ scale: 1.25 }}>
+              <a
+                href={`mailto:${'mark@gretzke.de'}?subject=${encodeURIComponent(
+                  'Getting in touch'
+                )}&body=${encodeURIComponent('Hey Mark...')}`}
               >
-                <h2 className="text-black text-xl">HIRE</h2>
-              </motion.button>
+                <motion.button
+                  onMouseEnter={() => setContactHover(true)}
+                  onMouseLeave={() => setContactHover(false)}
+                  className="px-8 py-2 rounded-md"
+                  initial={{ backgroundColor: '#FFFFFF' }}
+                  animate={{ backgroundColor: ['#FFFFFF', '#e9c169', '#FFFFFF'] }}
+                  transition={{
+                    duration: 2.5, // Time in seconds for one cycle of the keyframes
+                    ease: 'easeInOut', // Easing function
+                    repeat: Infinity, // Loop the animation indefinitely
+                  }}
+                >
+                  <h2 className="text-black text-xl">{contactHover ? 'mark@gretzke.de' : 'Get in touch'}</h2>
+                </motion.button>{' '}
+              </a>
             </motion.div>
           </div>
         </div>
@@ -130,7 +139,7 @@ export default function Hero() {
               <motion.div
                 key={index}
                 id={`client-${index}`}
-                className="bg-contain h-12 md:h-24 lg:h-40 w-40 bg-no-repeat"
+                className="bg-contain h-12 md:h-24 xl:h-40 w-40 bg-no-repeat"
                 style={{ backgroundImage: `url(/clients/clients_${imageSrc}.png)` }}
                 transformTemplate={({ scale }) => `scale(${scale})`}
                 custom={mouseX}

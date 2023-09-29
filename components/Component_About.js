@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
+import { useContext } from 'react';
+import { Globals } from './GlobalVariables';
 
 export default function About() {
+  const { mobile } = useContext(Globals);
   const aboutImage = '/about_Mark.jpg';
   const aboutImage1 = '/aboutImage1.webp';
 
@@ -35,9 +38,9 @@ export default function About() {
   return (
     <div
       className="h-screen py-24 md:py-64 bg-opacity-95 bg-cover relative overflow-hidden"
-      style={{ backgroundImage: `url(${aboutImage1})` }}
+      style={{ backgroundImage: `url(${aboutImage1})`, backgroundPosition: `${mobile ? '30% 0%' : '0% 0%'}` }}
     >
-      <div className="absolute top-0 left-0 right-0 bottom-0 h-full w-full bg-black bg-opacity-50 xl:bg-opacity-0"></div>
+      <div className="absolute top-0 left-0 right-0 bottom-0 h-full w-full bg-black bg-opacity-70 lg:bg-opacity-50 xl:bg-opacity-0"></div>
       <div className="flex justify-center relative">
         <div className="md:w-2/5">
           {/* <div
@@ -56,7 +59,7 @@ export default function About() {
               </motion.h2>
             </div>
             <motion.div
-              className="text-white mx-auto text-sm"
+              className="text-white mx-auto text-sm md:text-sm"
               initial={{ opacity: 0, filter: 'blur(10px)' }}
               whileInView={{ opacity: 1, filter: 'blur(0px)' }}
               transition={{ duration: 0.5, delay: 0.5 }}
@@ -82,27 +85,33 @@ export default function About() {
               className="flex flex-col space-y-2"
             >
               <motion.div className="flex space-x-2" variants={itemVariants}>
-                <div className="uppercase font-black">Education:</div>
-                <div>Bachelof or Arts - HS Mainz</div>
+                <div className="uppercase font-black text-sm md:text-base">Education:</div>
+                <div className="text-sm md:text-base">Bachelof or Arts - HS Mainz</div>
               </motion.div>
               <motion.div className="flex space-x-2" variants={itemVariants}>
-                <div className="uppercase font-black">Experience:</div>
-                <div>Freelancer over 10 years</div>
+                <div className="uppercase font-black text-sm md:text-base">Experience:</div>
+                <div className="text-sm md:text-base">Freelancer over 10 years</div>
               </motion.div>
               <motion.div className="flex flex-col md:flex-row space-x-2" variants={itemVariants}>
-                <div className="uppercase font-black">Also known for:</div>
+                <div className="uppercase font-black text-sm md:text-base">Also known for:</div>
                 <div className="flex space-x-2 text-sm md:text-base text-center">
-                  <a href="www.vimage.de">Vimage (Design)</a>
-                  <div>•</div>
-                  <a href="www.mayfly-games.com">Mayfly-Games (Gamedev)</a>
-                  <div>•</div>
-                  <a href="www.mark-gretzke.com">Mark-Gretzke (Coding)</a>
+                  <a className="text-sm md:text-base" href="www.vimage.de">
+                    Vimage (Design)
+                  </a>
+                  <div className="text-sm md:text-base">•</div>
+                  <a className="text-sm md:text-base" href="www.mayfly-games.com">
+                    Mayfly-Games (Gamedev)
+                  </a>
+                  <div className="text-sm md:text-base">•</div>
+                  <a className="text-sm md:text-base" href="www.mark-gretzke.com">
+                    Mark-Gretzke (Coding)
+                  </a>
                 </div>
               </motion.div>
               <motion.div className="flex space-x-2" variants={itemVariants}>
-                <div className="uppercase font-black">place of residence:</div>
+                <div className="uppercase font-black text-sm md:text-base">place of residence:</div>
                 <div className="flex space-x-2">
-                  <div>Germany - Ludwigshafen am Rhein</div>
+                  <div className="text-sm md:text-base">Germany - Ludwigshafen am Rhein</div>
                 </div>
               </motion.div>
             </motion.div>
